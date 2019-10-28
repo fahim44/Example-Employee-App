@@ -2,6 +2,7 @@ package com.fahim.example_employee_app.dagger
 
 import android.content.Context
 import androidx.room.Room
+import com.fahim.example_employee_app.room.EmployeeDao
 import com.fahim.example_employee_app.room.EmployeeDatabase
 import dagger.Module
 import dagger.Provides
@@ -18,5 +19,11 @@ class DatabaseModule {
                 .fallbackToDestructiveMigration()
                 .build()
         }
+    }
+
+    @Provides
+    @Singleton
+    fun provideDao(database: EmployeeDatabase) : EmployeeDao {
+        return database.employeeDao()
     }
 }
