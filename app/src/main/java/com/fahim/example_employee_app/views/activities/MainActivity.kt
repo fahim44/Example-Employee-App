@@ -1,7 +1,8 @@
-package com.fahim.example_employee_app
+package com.fahim.example_employee_app.views.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.fahim.example_employee_app.R
 
 class MainActivity : AppCompatActivity() {
 
