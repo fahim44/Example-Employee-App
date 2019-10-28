@@ -1,8 +1,6 @@
 package com.fahim.example_employee_app.repositories
 
 import android.os.AsyncTask
-import androidx.lifecycle.LiveData
-import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import com.fahim.example_employee_app.models.Employee
 import com.fahim.example_employee_app.room.EmployeeDao
@@ -10,7 +8,7 @@ import com.fahim.example_employee_app.room.EmployeeDao
 class EmployeeRepository(private val dao : EmployeeDao) {
     fun getCount() =  dao.getRowCount()
 
-    fun getAllEmployees() : LiveData<PagedList<Employee>> = dao.employeesByRating().toLiveData(pageSize = 10)
+    fun getAllEmployees() = dao.employeesByRating().toLiveData(pageSize = 10)
 
     fun getSearchedEmployeeList(name:String)/*: LiveData<PagedList<Employee>>*/ = dao.employeesSortByName(name).toLiveData(pageSize = 10)
 

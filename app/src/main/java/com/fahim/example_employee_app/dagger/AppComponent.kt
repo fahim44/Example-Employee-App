@@ -8,7 +8,8 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class,
     SharedPreferenceModule::class,
     DatabaseModule::class,
-    RepositoryModule::class])
+    RepositoryModule::class,
+    RetrofitModule::class])
 interface AppComponent{
     fun inject(target: MainActivityViewModel)
 }
