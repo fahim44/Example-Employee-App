@@ -6,7 +6,7 @@ import androidx.core.content.edit
 import javax.inject.Inject
 
 
-class SharedPreference @Inject constructor(context : Context) {
+class SharedPreference (context : Context) {
     companion object{
         private const val PREFERENCE_NAME = "example_employee_app"
         private const val DUMMY_DATA_DOWNLOADED = "dummy_data_downloaded"

@@ -11,6 +11,10 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     @Inject
     lateinit var preference : SharedPreference
 
+    fun show(){
+        Log.d("llr", preference.toString())
+    }
+
     init {
         (application as EmployeeApplication).component.inject(this)
     }
