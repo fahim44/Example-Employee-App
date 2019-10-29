@@ -9,12 +9,13 @@ import com.fahim.example_employee_app.models.Employee
 import com.fahim.example_employee_app.retrofit.DummyDataService
 import com.fahim.example_employee_app.room.EmployeeDao
 import com.fahim.example_employee_app.utils.SharedPreference
+import com.fahim.example_employee_app.utils.TaskUtils
 import com.fahim.example_employee_app.utils.ioThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EmployeeRepository(private val dao : EmployeeDao, private val dataService: DummyDataService, private val preference: SharedPreference) {
+class EmployeeRepository(private val dao : EmployeeDao, private val dataService: DummyDataService, private val preference: SharedPreference, private val taskUtils: TaskUtils) {
 
     private val _dummyDataLoadedMLD = MutableLiveData<Boolean>()
 
@@ -44,16 +45,23 @@ class EmployeeRepository(private val dao : EmployeeDao, private val dataService:
 
 
     fun getDummyDataFromServiceAndLoadToLocalDB() : LiveData<Boolean> {
-        val call = dataService.getDummyEmployeesData()
-        call.enqueue(object : Callback<List<Employee>> {
-            override fun onResponse(call: Call<List<Employee>>, response: Response<List<Employee>>) {
-                insertEmployees(response.body()!!)
-            }
+        if (taskUtils.isInternetAvailable()) {
+            val call = dataService.getDummyEmployeesData()
+            call.enqueue(object : Callback<List<Employee>> {
+                override fun onResponse(
+                    call: Call<List<Employee>>,
+                    response: Response<List<Employee>>
+                ) {
+                    insertEmployees(response.body()!!)
+                }
 
-            override fun onFailure(call: Call<List<Employee>>, t: Throwable) {
-                _dummyDataLoadedMLD.value = false
-            }
-        })
+                override fun onFailure(call: Call<List<Employee>>, t: Throwable) {
+                    _dummyDataLoadedMLD.value = false
+                }
+            })
+        }else{
+            _dummyDataLoadedMLD.value = false
+        }
         return _dummyDataLoadedMLD
     }
 

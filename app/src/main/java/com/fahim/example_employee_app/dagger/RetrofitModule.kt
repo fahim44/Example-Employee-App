@@ -10,7 +10,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class RetrofitModule() {
+class RetrofitModule {
 
     @Provides
     @Singleton

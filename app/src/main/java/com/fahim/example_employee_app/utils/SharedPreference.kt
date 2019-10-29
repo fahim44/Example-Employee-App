@@ -3,7 +3,6 @@ package com.fahim.example_employee_app.utils
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import javax.inject.Inject
 
 
 class SharedPreference (context : Context) {

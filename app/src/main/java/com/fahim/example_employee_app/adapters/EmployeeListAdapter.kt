@@ -10,7 +10,6 @@ import com.fahim.example_employee_app.models.Employee
 import com.fahim.example_employee_app.viewmodels.BaseViewModel
 import androidx.databinding.DataBindingUtil
 import android.view.LayoutInflater
-import com.fahim.example_employee_app.R
 
 
 class EmployeeListAdapter(private val viewModel: BaseViewModel, private val item_layout_id:Int)

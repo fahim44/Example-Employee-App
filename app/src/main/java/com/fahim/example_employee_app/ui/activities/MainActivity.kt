@@ -7,6 +7,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.viewmodels.MainActivityViewModel
+
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel : MainActivityViewModel
