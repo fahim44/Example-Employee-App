@@ -19,7 +19,7 @@ interface EmployeeDao {
     @Update
     fun update(employee: Employee)
 
-    @Query("SELECT * FROM employee ORDER BY uid ASC")
+    @Query("SELECT * FROM employee ORDER BY id ASC")
     fun getAllEmployees(): DataSource.Factory<Int, Employee>
 
     @Query("SELECT * FROM employee WHERE employee_name LIKE :name ORDER BY employee_rating DESC")
