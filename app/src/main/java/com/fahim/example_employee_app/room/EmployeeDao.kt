@@ -28,7 +28,8 @@ interface EmployeeDao {
     @Query("SELECT COUNT(id) FROM employee")
     fun getRowCount(): LiveData<Int>
 
-    @Query("SELECT * FROM employee")
-    fun getAll(): List<Employee>
+    @Query("SELECT * FROM employee WHERE id = :id")
+    fun getEmployee(id:Int): LiveData<Employee>
+
 
 }

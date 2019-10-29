@@ -1,9 +1,6 @@
 package com.fahim.example_employee_app.dagger
 
-import com.fahim.example_employee_app.viewmodels.AddRemoveViewModel
-import com.fahim.example_employee_app.viewmodels.ListViewModel
-import com.fahim.example_employee_app.viewmodels.MainActivityViewModel
-import com.fahim.example_employee_app.viewmodels.SearchViewModel
+import com.fahim.example_employee_app.viewmodels.*
 import dagger.Component
 import javax.inject.Singleton
 
@@ -21,4 +18,6 @@ interface AppComponent{
     fun inject(target: SearchViewModel)
 
     fun inject(target: AddRemoveViewModel)
+
+    fun inject(target: DetailViewModel)
 }

@@ -17,14 +17,17 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
 
     val allEmployeeListLD : LiveData<PagedList<Employee>>
 
+    private val _navigateToDetailActivityMLD = MutableLiveData<Int>()
+    val navigateToDetailActivityLD : LiveData<Int> = _navigateToDetailActivityMLD
+
     init {
         (application as EmployeeApplication).component.inject(this)
 
         allEmployeeListLD = repository.getAllEmployees()
     }
 
-    override fun onItemClick(employee: Employee) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onItemClick(id: Int) {
+        _navigateToDetailActivityMLD.value = id
     }
 
 }

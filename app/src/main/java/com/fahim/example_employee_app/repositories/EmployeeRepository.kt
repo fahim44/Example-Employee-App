@@ -24,9 +24,11 @@ class EmployeeRepository(private val dao : EmployeeDao, private val dataService:
         preference.initDataLoaded(true)
     }
 
+    fun getEmployee(id:Int) = dao.getEmployee(id)
+
     fun getAllEmployees()  = dao.getAllEmployees().toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
 
-    fun getSearchedEmployeeList(name:String)/*: LiveData<PagedList<Employee>>*/ = dao.employeesSortByName(name).toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
+    fun getSearchedEmployeeList(name:String) = dao.employeesSortByName(name).toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
 
 
     fun insertEmployees(employees: List<Employee>) {

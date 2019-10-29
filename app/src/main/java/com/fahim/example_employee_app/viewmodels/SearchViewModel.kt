@@ -25,7 +25,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
         searchedEmployeeListLD = repository.getSearchedEmployeeList(name)
     }
 
-    override fun onItemClick(employee: Employee) {
+    override fun onItemClick(id: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
