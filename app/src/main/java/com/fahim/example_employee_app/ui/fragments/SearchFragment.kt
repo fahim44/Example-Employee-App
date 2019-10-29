@@ -1,5 +1,6 @@
 package com.fahim.example_employee_app.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.adapters.EmployeeListAdapter
 import com.fahim.example_employee_app.models.Employee
+import com.fahim.example_employee_app.ui.activities.DetailActivity
+import com.fahim.example_employee_app.utils.EmployeeKeys
 import com.fahim.example_employee_app.viewmodels.SearchViewModel
 
 class SearchFragment : Fragment() {
@@ -48,6 +51,14 @@ class SearchFragment : Fragment() {
                 currentSearchedName = et.text.toString()
             }
         }
+
+
+        searchViewModel.navigateToDetailActivityLD.observe(this, Observer {
+            val intent = Intent(activity, DetailActivity::class.java)
+            intent.putExtra(EmployeeKeys.EMPLOYEE_ID,it)
+            startActivity(intent)
+            activity?.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
+        })
 
         return root
     }

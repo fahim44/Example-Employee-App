@@ -90,5 +90,24 @@
                 android:layout_marginStart="10dp"
                 android:text="@{obj.salary}"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rating: "
+                android:textStyle="bold"
+                android:textSize="30sp"/>
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialRatingBar.RatingBar"
+                android:rating="@{obj.rating}"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>

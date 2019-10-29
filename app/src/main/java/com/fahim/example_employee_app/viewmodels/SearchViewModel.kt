@@ -16,6 +16,9 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
 
     var searchedEmployeeListLD : LiveData<PagedList<Employee>>? = null
 
+    private val _navigateToDetailActivityMLD = MutableLiveData<Int>()
+    val navigateToDetailActivityLD : LiveData<Int> = _navigateToDetailActivityMLD
+
     init {
         (application as EmployeeApplication).component.inject(this)
 
@@ -26,6 +29,6 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
     }
 
     override fun onItemClick(id: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        _navigateToDetailActivityMLD.value = id
     }
 }

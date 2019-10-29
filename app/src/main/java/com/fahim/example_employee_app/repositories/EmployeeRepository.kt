@@ -9,6 +9,7 @@ import com.fahim.example_employee_app.models.Employee
 import com.fahim.example_employee_app.retrofit.DummyDataService
 import com.fahim.example_employee_app.room.EmployeeDao
 import com.fahim.example_employee_app.utils.SharedPreference
+import com.fahim.example_employee_app.utils.ioThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +35,8 @@ class EmployeeRepository(private val dao : EmployeeDao, private val dataService:
     fun insertEmployees(employees: List<Employee>) {
         InsertEmployeeAsyncTask(dao,employees,_dummyDataLoadedMLD).execute()
     }
+
+    fun updateEmployeeRating(id: Int, rating : Float) =  ioThread { dao.updateRating(id,rating) }
 
     fun updateEmployee(employee: Employee) = UpdateEmployeeAsyncTask(dao,employee).execute()
 

@@ -10,10 +10,12 @@ import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.databinding.ActivityDetailBinding
 import com.fahim.example_employee_app.utils.EmployeeKeys
 import com.fahim.example_employee_app.viewmodels.DetailViewModel
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
 
     lateinit var viewModel: DetailViewModel
+    private var id = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +24,12 @@ class DetailActivity : AppCompatActivity() {
             this, R.layout.activity_detail)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.detaiil_page)
 
         viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
         if (intent.hasExtra(EmployeeKeys.EMPLOYEE_ID)) {
-            viewModel.getEmployee(intent.getIntExtra(EmployeeKeys.EMPLOYEE_ID, 0)).observe(this, Observer {
+            id = intent.getIntExtra(EmployeeKeys.EMPLOYEE_ID,0)
+            viewModel.getEmployee(id).observe(this, Observer {
                 binding.obj = it
             })
         }
@@ -38,5 +42,11 @@ class DetailActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        if(id>=0)
+            viewModel.updateRating(id, rating_bar.rating)
+        super.onBackPressed()
     }
 }

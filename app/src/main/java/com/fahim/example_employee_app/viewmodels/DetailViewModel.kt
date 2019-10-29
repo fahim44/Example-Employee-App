@@ -16,4 +16,6 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun getEmployee(id:Int) = repository.getEmployee(id)
+
+    fun updateRating(id:Int, rating: Float) = repository.updateEmployeeRating(id,rating)
 }

@@ -5,4 +5,5 @@
     <string name="title_search_fragment">Search</string>
     <string name="title_add_remove_fragment">Add or Remove</string>
     <string name="search_by_name">Search Employee by name</string>
+    <string name="detaiil_page">Details</string>
 </resources>

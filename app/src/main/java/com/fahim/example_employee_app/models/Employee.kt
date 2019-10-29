@@ -12,5 +12,5 @@ data class Employee (
     @SerializedName("employee_salary") @ColumnInfo(name = "employee_salary") var salary : String,
     @SerializedName("employee_age") @ColumnInfo(name="employee_age") var age : Int,
     @SerializedName("profile_image") @ColumnInfo(name="profile_image") var image : String,
-    @SerializedName("employee_rating") @ColumnInfo(name="employee_rating") var rating : Int
+    @SerializedName("employee_rating") @ColumnInfo(name="employee_rating") var rating : Float
 )

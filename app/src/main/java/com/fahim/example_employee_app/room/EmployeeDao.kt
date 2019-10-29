@@ -31,5 +31,6 @@ interface EmployeeDao {
     @Query("SELECT * FROM employee WHERE id = :id")
     fun getEmployee(id:Int): LiveData<Employee>
 
-
+    @Query("UPDATE employee SET employee_rating = :rating WHERE id = :id")
+    fun updateRating(id:Int, rating: Float)
 }
