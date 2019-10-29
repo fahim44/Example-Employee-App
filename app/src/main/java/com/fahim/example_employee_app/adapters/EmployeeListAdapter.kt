@@ -13,12 +13,12 @@ import android.view.LayoutInflater
 import com.fahim.example_employee_app.R
 
 
-class EmployeeListAdapter(private val viewModel: BaseViewModel)
+class EmployeeListAdapter(private val viewModel: BaseViewModel, private val item_layout_id:Int)
     : PagedListAdapter<Employee,EmployeeListAdapter.EmployeeViewHolder>(DIFF_CALLBACK){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmployeeViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate(layoutInflater, R.layout.list_item_layout, parent, false) as ViewDataBinding
+        val binding = DataBindingUtil.inflate(layoutInflater, item_layout_id, parent, false) as ViewDataBinding
         return EmployeeViewHolder(binding)
     }
 
@@ -26,6 +26,8 @@ class EmployeeListAdapter(private val viewModel: BaseViewModel)
         val employee = getItem(position)
         holder.bind(employee,viewModel)
     }
+
+    fun getEmployeeAt(position : Int) : Employee? = getItem(position)
 
     companion object {
         private val DIFF_CALLBACK = object :

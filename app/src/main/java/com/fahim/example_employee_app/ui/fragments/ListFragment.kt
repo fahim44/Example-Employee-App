@@ -23,7 +23,7 @@ class ListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         listViewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_list, container, false)
-        val adapter = EmployeeListAdapter(listViewModel)
+        val adapter = EmployeeListAdapter(listViewModel,R.layout.list_item_layout)
         listViewModel.allEmployeeListLD.observe(this, Observer(adapter::submitList))
         val recyclerView = root.findViewById(R.id.rv) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)

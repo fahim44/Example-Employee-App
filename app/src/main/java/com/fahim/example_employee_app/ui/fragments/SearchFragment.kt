@@ -40,7 +40,7 @@ class SearchFragment : Fragment() {
         val ib : ImageButton = root.findViewById(R.id.ib_search)
         ib.setOnClickListener {
             if (et.text != null && et.text.toString().trim()!="" && et.text.toString() != currentSearchedName){
-                adapter  = EmployeeListAdapter(searchViewModel)
+                adapter  = EmployeeListAdapter(searchViewModel,R.layout.list_item_layout)
                 observer?.let {
                     searchViewModel.searchedEmployeeListLD?.removeObserver(it)
                 }

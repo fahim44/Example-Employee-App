@@ -38,9 +38,9 @@ class EmployeeRepository(private val dao : EmployeeDao, private val dataService:
 
     fun updateEmployeeRating(id: Int, rating : Float) =  ioThread { dao.updateRating(id,rating) }
 
-    fun updateEmployee(employee: Employee) = UpdateEmployeeAsyncTask(dao,employee).execute()
+    fun updateEmployee(employee: Employee) = ioThread { dao.update(employee) }
 
-    fun deleteEmployee(employee: Employee) = DeleteEmployeeAsyncTask(dao,employee).execute()
+    fun deleteEmployee(employee: Employee) = ioThread { dao.delete(employee) }
 
 
     fun getDummyDataFromServiceAndLoadToLocalDB() : LiveData<Boolean> {
@@ -67,18 +67,6 @@ class EmployeeRepository(private val dao : EmployeeDao, private val dataService:
             override fun onPostExecute(result: Unit?) {
                 super.onPostExecute(result)
                 liveData.value = true
-            }
-        }
-
-        private class UpdateEmployeeAsyncTask(private val dao: EmployeeDao,private val employee : Employee) : AsyncTask<Unit,Unit,Unit>(){
-            override fun doInBackground(vararg params: Unit?) {
-                dao.update(employee)
-            }
-        }
-
-        private class DeleteEmployeeAsyncTask(private val dao: EmployeeDao,private val employee : Employee) : AsyncTask<Unit,Unit,Unit>(){
-            override fun doInBackground(vararg params: Unit?) {
-                dao.delete(employee)
             }
         }
     }
