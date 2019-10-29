@@ -11,7 +11,7 @@ import androidx.lifecycle.LiveData
 interface EmployeeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg employees : Employee)
+    fun insert(vararg employees : Employee) : List<Long>
 
     @Delete
     fun delete(employee: Employee)
