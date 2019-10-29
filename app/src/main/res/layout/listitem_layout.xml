@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="obj"
+            type="com.fahim.example_employee_app.models.Employee" />
+
+        <variable
+            name="viewModel"
+            type="com.fahim.example_employee_app.viewmodels.BaseViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:layout_margin="20dp"
+        android:onClick="@{() -> viewModel.onItemClick(obj)}">
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{obj.name}"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{obj.id}"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

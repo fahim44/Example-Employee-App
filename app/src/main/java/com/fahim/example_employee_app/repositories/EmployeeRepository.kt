@@ -7,22 +7,29 @@ import androidx.paging.toLiveData
 import com.fahim.example_employee_app.models.Employee
 import com.fahim.example_employee_app.retrofit.DummyDataService
 import com.fahim.example_employee_app.room.EmployeeDao
+import com.fahim.example_employee_app.utils.SharedPreference
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EmployeeRepository(private val dao : EmployeeDao, private val dataService: DummyDataService) {
-    private val dummyDataLoaded = MutableLiveData<Boolean>()
+class EmployeeRepository(private val dao : EmployeeDao, private val dataService: DummyDataService, private val preference: SharedPreference) {
 
+    private val _dummyDataLoadedMLD = MutableLiveData<Boolean>()
 
-    //fun getCount() =  dao.getRowCount()
+    fun isDummyDataLoaded() = preference.isInitDataLoaded()
+
+    fun setDummyDataLoaded() {
+        preference.initDataLoaded(true)
+    }
 
     fun getAllEmployees() = dao.employeesByRating().toLiveData(pageSize = 10)
 
     fun getSearchedEmployeeList(name:String)/*: LiveData<PagedList<Employee>>*/ = dao.employeesSortByName(name).toLiveData(pageSize = 10)
 
 
-    fun insertEmployees(employees: List<Employee>) = InsertEmployeeAsyncTask(dao,employees,dummyDataLoaded).execute()
+    fun insertEmployees(employees: List<Employee>) {
+        InsertEmployeeAsyncTask(dao,employees,_dummyDataLoadedMLD).execute()
+    }
 
     fun updateEmployee(employee: Employee) = UpdateEmployeeAsyncTask(dao,employee).execute()
 
@@ -37,10 +44,10 @@ class EmployeeRepository(private val dao : EmployeeDao, private val dataService:
             }
 
             override fun onFailure(call: Call<List<Employee>>, t: Throwable) {
-                dummyDataLoaded.value = false
+                _dummyDataLoadedMLD.value = false
             }
         })
-        return dummyDataLoaded
+        return _dummyDataLoadedMLD
     }
 
     companion object {

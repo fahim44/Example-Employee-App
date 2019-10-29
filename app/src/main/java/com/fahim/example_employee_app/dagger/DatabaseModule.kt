@@ -23,7 +23,5 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDao(database: EmployeeDatabase) : EmployeeDao {
-        return database.employeeDao()
-    }
+    fun provideDao(database: EmployeeDatabase) = database.employeeDao()
 }

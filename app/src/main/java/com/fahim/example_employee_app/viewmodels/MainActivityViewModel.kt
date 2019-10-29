@@ -6,17 +6,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fahim.example_employee_app.EmployeeApplication
 import com.fahim.example_employee_app.repositories.EmployeeRepository
-import com.fahim.example_employee_app.utils.SharedPreference
 import javax.inject.Inject
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     @Inject
     lateinit var repository: EmployeeRepository
     
-    @Inject
-    lateinit var sharedPreference: SharedPreference
-    
-    val navigateToTabActivityLD = MutableLiveData<Boolean>()
+    private val _navigateToTabActivityMLD = MutableLiveData<Boolean>()
+
+    val navigateToTabActivityLD : LiveData<Boolean> = _navigateToTabActivityMLD
 
     lateinit var dummyDataSetLD : LiveData<Boolean>
 
@@ -27,17 +25,17 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     //check if data already loaded from server or not( from pref), if it is loaded navigate to next page
     //if it is not loaded, load and save, then set pref value, then navigate to next page
     fun checkExistingData(){
-        if (!sharedPreference.isInitDataLoaded()){
+        if (!repository.isDummyDataLoaded()){
             dummyDataSetLD = repository.getDummyDataFromServiceAndLoadToLocalDB()
         }else {
             dummyDataSetLD = MutableLiveData<Boolean>()
-            navigateToTabActivityLD.value = true
+            _navigateToTabActivityMLD.value = true
         }
     }
 
     fun setPrefInitDataValue(value:Boolean){
         if(value)
-            sharedPreference.initDataLoaded()
-        navigateToTabActivityLD.value = true
+            repository.setDummyDataLoaded()
+        _navigateToTabActivityMLD.value = true
     }
 }

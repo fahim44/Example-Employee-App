@@ -3,24 +3,35 @@ package com.fahim.example_employee_app.dagger
 import com.fahim.example_employee_app.retrofit.DummyDataService
 import dagger.Module
 import dagger.Provides
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class RetrofitModule(private val base_url:String) {
+class RetrofitModule() {
+
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
+    @Named("base_url")
+    fun provideUrl() = "http://dummy.restapiexample.com/api/v1/"
+
+    @Provides
+    @Singleton
+    fun provideConverterFactory() : Converter.Factory = GsonConverterFactory.create()
+
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(@Named("base_url") url : String, converter: Converter.Factory): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(base_url)
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(url)
+            .addConverterFactory(converter)
             .build()
     }
 
     @Provides
     @Singleton
-    fun providesDummyDataService(retrofit: Retrofit):DummyDataService {
-        return retrofit.create(DummyDataService::class.java)
-    }
+    fun providesDummyDataService(retrofit: Retrofit):DummyDataService = retrofit.create(DummyDataService::class.java)
 }

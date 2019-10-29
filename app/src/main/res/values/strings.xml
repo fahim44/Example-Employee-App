@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Example-Employee-App</string>
+    <string name="title_activity_tab_page">TabPageActivity</string>
+    <string name="title_list_fragment">List</string>
+    <string name="title_search_fragment">Search</string>
+    <string name="title_add_remove_fragment">Add or Remove</string>
 </resources>

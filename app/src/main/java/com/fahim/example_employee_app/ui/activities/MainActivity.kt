@@ -1,5 +1,6 @@
 package com.fahim.example_employee_app.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -8,7 +9,7 @@ import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.viewmodels.MainActivityViewModel
 class MainActivity : AppCompatActivity() {
 
-    var viewModel : MainActivityViewModel ?= null
+    private var viewModel : MainActivityViewModel ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +29,9 @@ class MainActivity : AppCompatActivity() {
 
         viewModel?.navigateToTabActivityLD?.observe(this, Observer {
             it?.let {
+                if(it)
+                    startActivity(Intent(this,TabPageActivity::class.java))
+                    finish()
             } })
     }
 

@@ -27,7 +27,7 @@ class SharedPreference (context : Context) {
     }
 
 
-    fun initDataLoaded(){
-        preference.edit { putBoolean(DUMMY_DATA_DOWNLOADED, true) }
+    fun initDataLoaded(value:Boolean){
+        preference.edit { putBoolean(DUMMY_DATA_DOWNLOADED, value) }
     }
 }
