@@ -1,33 +1,62 @@
 package com.fahim.example_employee_app
 
+import android.content.Context
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.room.Room
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.fahim.example_employee_app.models.Employee
 import com.fahim.example_employee_app.room.EmployeeDao
 import com.fahim.example_employee_app.room.EmployeeDatabase
 import org.junit.After
 
 import org.junit.Test
-
+import org.junit.runner.RunWith
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Rule
 import java.io.IOException
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
 
+@RunWith(AndroidJUnit4::class)
 class RoomDBTest {
+    @get:Rule val testRule = InstantTaskExecutorRule()
+
+    companion object {
+        fun <T> getValue(liveData: LiveData<T>): T {
+            val data = arrayOfNulls<Any>(1)
+            val latch = CountDownLatch(1)
+            val observer = object : Observer<T> {
+                override fun onChanged(o: T?) {
+                    data[0] = o
+                    latch.countDown()
+                    liveData.removeObserver(this)
+                }
+            }
+            liveData.observeForever(observer)
+            latch.await(2, TimeUnit.SECONDS)
+
+            @Suppress("UNCHECKED_CAST")
+            return data[0] as T
+        }
+    }
+
+
     private lateinit var dao : EmployeeDao
     private lateinit var db : EmployeeDatabase
 
 
+
+
     @Before
     fun setUp() {
-        val context = InstrumentationRegistry.getInstrumentation().context
+        val context = ApplicationProvider.getApplicationContext<Context>()
+
         db = Room.inMemoryDatabaseBuilder(context,EmployeeDatabase::class.java)
-            .allowMainThreadQueries()
             .build()
         dao = db.employeeDao()
     }
@@ -40,26 +69,52 @@ class RoomDBTest {
 
 
     @Test
-    fun testCreate(){
+    @Throws(Exception::class)
+    fun insertData(){
         val expected = Employee(1,"fahim",100000.99f,21,5.0f)
         val id = dao.insert(expected)
+        val actual = getValue(dao.getEmployee(id[0].toInt()))
 
-        val ld = dao.getEmployee(id[0].toInt()).blockingObserve()
-
-        assertEquals(expected.age, ld!!.age)
+        assertEquals(expected.name, actual.name)
+        assertEquals(expected.id, actual.id)
+        assertEquals(expected.salary,actual.salary)
+        assertEquals(expected.rating,actual.rating)
+        assertEquals(expected.age,actual.age)
     }
 
 
-    private fun <T> LiveData<T>.blockingObserve(): T? {
-        var value : T? = null
-        val latch = CountDownLatch(1)
+    @Test
+    @Throws(Exception::class)
+    fun updateData(){
+        val expected = Employee(1,"fahim",100000.99f,21,5.0f)
+        val id = dao.insert(expected)
+        expected.rating = 0.3f
+        expected.name = "salam"
+        expected.age = 27
+        expected.id = 44
+        expected.salary = 223355.887f
+        expected .uid = id[0].toInt()
+        dao.update(expected)
+        val actual = getValue(dao.getEmployee(id[0].toInt()))
 
-        val observer = Observer<T> { t ->
-            value = t
-            latch.countDown()
-        }
-        observeForever(observer)
-        latch.await(2, TimeUnit.SECONDS)
-        return value
+        assertEquals(expected.name, actual.name)
+        assertEquals(expected.id, actual.id)
+        assertEquals(expected.salary,actual.salary)
+        assertEquals(expected.rating,actual.rating)
+        assertEquals(expected.age,actual.age)
     }
+
+    @Test
+    @Throws(Exception::class)
+    fun deleteData(){
+        val expected = Employee(1,"fahim",100000.99f,21,5.0f)
+        val id = dao.insert(expected)
+        expected.uid = id[0].toInt()
+        dao.delete(expected)
+        val actual = getValue(dao.getEmployee(id[0].toInt()))
+
+        assertNull(actual)
+    }
+
+
 }
