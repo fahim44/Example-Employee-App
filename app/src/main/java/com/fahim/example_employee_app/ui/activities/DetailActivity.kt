@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 class DetailActivity : AppCompatActivity() {
 
     lateinit var viewModel: DetailViewModel
-    private var id = -1
+    private var uid = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +28,8 @@ class DetailActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
         if (intent.hasExtra(EmployeeKeys.EMPLOYEE_ID)) {
-            id = intent.getIntExtra(EmployeeKeys.EMPLOYEE_ID,0)
-            viewModel.getEmployee(id).observe(this, Observer {
+            uid = intent.getIntExtra(EmployeeKeys.EMPLOYEE_ID,0)
+            viewModel.getEmployee(uid).observe(this, Observer {
                 binding.obj = it
             })
         }
@@ -45,8 +45,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if(id>=0)
-            viewModel.updateRating(id, rating_bar.rating)
+        if(uid>=0)
+            viewModel.updateRating(uid, rating_bar.rating)
         super.onBackPressed()
     }
 }

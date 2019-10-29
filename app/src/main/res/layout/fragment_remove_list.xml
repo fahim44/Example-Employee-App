@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        tools:listitem="@layout/add_remove_list_item_layout"
+        tools:listitem="@layout/remove_list_item_layout"
         tools:itemCount="10"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

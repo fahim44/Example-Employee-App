@@ -19,7 +19,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:onClick="@{() -> viewModel.onItemClick(obj.id)}">
+        android:onClick="@{() -> viewModel.onItemClick(obj.uid)}">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

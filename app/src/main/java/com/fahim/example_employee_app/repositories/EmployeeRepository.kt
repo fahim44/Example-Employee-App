@@ -25,7 +25,7 @@ class EmployeeRepository(private val dao : EmployeeDao, private val dataService:
         preference.initDataLoaded(true)
     }
 
-    fun getEmployee(id:Int) = dao.getEmployee(id)
+    fun getEmployee(uid:Int) = dao.getEmployee(uid)
 
     fun getAllEmployees()  = dao.getAllEmployees().toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
 

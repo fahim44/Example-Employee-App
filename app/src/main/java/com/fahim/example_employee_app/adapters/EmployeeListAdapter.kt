@@ -33,7 +33,7 @@ class EmployeeListAdapter(private val viewModel: BaseViewModel, private val item
         private val DIFF_CALLBACK = object :
             DiffUtil.ItemCallback<Employee>() {
             override fun areItemsTheSame(oldEmployee: Employee,
-                                         newEmployee: Employee) = oldEmployee.id == newEmployee.id
+                                         newEmployee: Employee) = oldEmployee.uid == newEmployee.uid
 
             override fun areContentsTheSame(oldEmployee: Employee,
                                             newEmployee: Employee) = oldEmployee == newEmployee

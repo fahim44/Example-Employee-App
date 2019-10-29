@@ -3,7 +3,9 @@
     <string name="title_activity_tab_page">TabPageActivity</string>
     <string name="title_list_fragment">List</string>
     <string name="title_search_fragment">Search</string>
-    <string name="title_add_remove_fragment">Add or Remove</string>
+    <string name="title_remove_list_fragment">Add or Remove</string>
     <string name="search_by_name">Search Employee by name</string>
     <string name="detaiil_page">Details</string>
+    <string name="add_page">Add Employee</string>
+    <string name="edit_page">Edit Employee</string>
 </resources>

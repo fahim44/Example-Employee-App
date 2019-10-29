@@ -17,7 +17,9 @@ interface AppComponent{
 
     fun inject(target: SearchViewModel)
 
-    fun inject(target: AddRemoveViewModel)
+    fun inject(target: RemoveListViewModel)
 
     fun inject(target: DetailViewModel)
+
+    fun inject(target: AddOrEditViewModel)
 }

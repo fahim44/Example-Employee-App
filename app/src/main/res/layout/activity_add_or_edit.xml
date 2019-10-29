@@ -26,12 +26,14 @@
                 android:text="Name: "
                 android:textStyle="bold"
                 android:textSize="30sp"/>
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
                 android:layout_marginStart="10dp"
-                android:text="@{obj.name}"/>
+                android:text="@{obj.name}"
+                android:hint="Name"/>
         </LinearLayout>
 
         <LinearLayout
@@ -45,12 +47,15 @@
                 android:text="Id: "
                 android:textStyle="bold"
                 android:textSize="30sp"/>
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/et_id"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
                 android:layout_marginStart="10dp"
-                android:text="@{Integer.toString(obj.id)}"/>
+                android:text="@{Integer.toString(obj.id)}"
+                android:hint="Id"
+                android:inputType="number"/>
         </LinearLayout>
 
         <LinearLayout
@@ -64,12 +69,15 @@
                 android:text="Age: "
                 android:textStyle="bold"
                 android:textSize="30sp"/>
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/et_age"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
                 android:layout_marginStart="10dp"
-                android:text="@{Integer.toString(obj.age)}"/>
+                android:text="@{Integer.toString(obj.age)}"
+                android:inputType="number"
+                android:hint="Age"/>
         </LinearLayout>
 
         <LinearLayout
@@ -83,31 +91,15 @@
                 android:text="Salary: "
                 android:textStyle="bold"
                 android:textSize="30sp"/>
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/et_salary"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
                 android:layout_marginStart="10dp"
-                android:text="@{Float.toString(obj.salary)}"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rating: "
-                android:textStyle="bold"
-                android:textSize="30sp"/>
-            <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                android:id="@+id/rating_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialRatingBar.RatingBar"
-                android:rating="@{obj.rating}"/>
+                android:text="@{Float.toString(obj.salary)}"
+                android:inputType="numberDecimal"
+                android:hint="Salary"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

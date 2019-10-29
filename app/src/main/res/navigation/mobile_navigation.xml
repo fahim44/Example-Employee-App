@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_add_remove"
-        android:name="com.fahim.example_employee_app.ui.fragments.AddRemoveFragment"
-        android:label="@string/title_add_remove_fragment"
-        tools:layout="@layout/fragment_add_remove" />
+        android:name="com.fahim.example_employee_app.ui.fragments.RemoveListFragment"
+        android:label="@string/title_remove_list_fragment"
+        tools:layout="@layout/fragment_remove_list" />
 </navigation>
