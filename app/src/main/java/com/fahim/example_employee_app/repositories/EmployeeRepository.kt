@@ -3,6 +3,7 @@ package com.fahim.example_employee_app.repositories
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.Config
 import androidx.paging.toLiveData
 import com.fahim.example_employee_app.models.Employee
 import com.fahim.example_employee_app.retrofit.DummyDataService
@@ -16,15 +17,16 @@ class EmployeeRepository(private val dao : EmployeeDao, private val dataService:
 
     private val _dummyDataLoadedMLD = MutableLiveData<Boolean>()
 
+
     fun isDummyDataLoaded() = preference.isInitDataLoaded()
 
     fun setDummyDataLoaded() {
         preference.initDataLoaded(true)
     }
 
-    fun getAllEmployees() = dao.employeesByRating().toLiveData(pageSize = 10)
+    fun getAllEmployees()  = dao.getAllEmployees().toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
 
-    fun getSearchedEmployeeList(name:String)/*: LiveData<PagedList<Employee>>*/ = dao.employeesSortByName(name).toLiveData(pageSize = 10)
+    fun getSearchedEmployeeList(name:String)/*: LiveData<PagedList<Employee>>*/ = dao.employeesSortByName(name).toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
 
 
     fun insertEmployees(employees: List<Employee>) {

@@ -1,13 +1,16 @@
 package com.fahim.example_employee_app.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import com.fahim.example_employee_app.EmployeeApplication
+import com.fahim.example_employee_app.models.Employee
 
-class AddRemoveViewModel : ViewModel() {
+class AddRemoveViewModel(application: Application) : BaseViewModel(application) {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+    init {
+        (application as EmployeeApplication).component.inject(this)
     }
-    val text: LiveData<String> = _text
+
+    override fun onItemClick(employee: Employee) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

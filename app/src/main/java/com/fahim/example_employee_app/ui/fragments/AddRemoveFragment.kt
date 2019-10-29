@@ -23,10 +23,6 @@ class AddRemoveFragment : Fragment() {
         addRemoveViewModel =
             ViewModelProviders.of(this).get(AddRemoveViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_add_remove, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        addRemoveViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
         return root
     }
 }

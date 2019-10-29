@@ -9,25 +9,25 @@ import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.viewmodels.MainActivityViewModel
 class MainActivity : AppCompatActivity() {
 
-    private var viewModel : MainActivityViewModel ?= null
+    private lateinit var viewModel : MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
-        viewModel?.checkExistingData()
+        viewModel.checkExistingData()
 
         handleLiveData()
     }
 
     private fun handleLiveData(){
-        viewModel?.dummyDataSetLD?.observe(this, Observer {
+        viewModel.dummyDataSetLD.observe(this, Observer {
             it?.let {
-                viewModel?.setPrefInitDataValue(it)
+                viewModel.setPrefInitDataValue(it)
             } })
 
-        viewModel?.navigateToTabActivityLD?.observe(this, Observer {
+        viewModel.navigateToTabActivityLD.observe(this, Observer {
             it?.let {
                 if(it)
                     startActivity(Intent(this,TabPageActivity::class.java))

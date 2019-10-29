@@ -7,10 +7,10 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "employee")
 data class Employee (
-    @PrimaryKey val id : Int,
-    @ColumnInfo(name ="employee_name") @SerializedName("employee_name") val name : String,
-    @ColumnInfo(name = "employee_salary") @SerializedName("employee_salary") val salary : String,
-    @ColumnInfo(name="employee_age") @SerializedName("employee_age") val age : Int,
-    @ColumnInfo(name="profile_image") @SerializedName("profile_image") val image : String,
-    @ColumnInfo(name="employee_rating") @SerializedName("employee_rating") val rating : Int
+    @PrimaryKey var id : Int,
+    @SerializedName("employee_name") @ColumnInfo(name ="employee_name") var name : String,
+    @SerializedName("employee_salary") @ColumnInfo(name = "employee_salary") var salary : String,
+    @SerializedName("employee_age") @ColumnInfo(name="employee_age") var age : Int,
+    @SerializedName("profile_image") @ColumnInfo(name="profile_image") var image : String,
+    @SerializedName("employee_rating") @ColumnInfo(name="employee_rating") var rating : Int
 )
