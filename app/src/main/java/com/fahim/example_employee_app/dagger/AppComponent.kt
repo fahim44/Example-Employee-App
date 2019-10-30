@@ -1,5 +1,6 @@
 package com.fahim.example_employee_app.dagger
 
+import com.fahim.example_employee_app.ui.activities.MainActivity
 import com.fahim.example_employee_app.viewmodels.*
 import dagger.Component
 import javax.inject.Singleton
@@ -9,9 +10,12 @@ import javax.inject.Singleton
     SharedPreferenceModule::class,
     DatabaseModule::class,
     RepositoryModule::class,
-    RetrofitModule::class])
+    RetrofitModule::class,
+    ViewModelModule::class])
 interface AppComponent{
-    fun inject(target: MainActivityViewModel)
+
+
+    fun inject(target: MainActivity)
 
     fun inject(target: ListViewModel)
 
@@ -22,4 +26,5 @@ interface AppComponent{
     fun inject(target: DetailViewModel)
 
     fun inject(target: AddOrEditViewModel)
+
 }
