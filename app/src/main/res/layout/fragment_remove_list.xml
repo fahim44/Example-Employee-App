@@ -18,10 +18,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="30dp"
+        android:layout_marginEnd="30dp"
         android:src="@drawable/ic_add_black_24dp"
         app:maxImageSize="56dp"
         app:fabSize="auto"
         app:elevation="25dp"
+        app:useCompatPadding="true"
+        android:layout_marginBottom="70dp"
         />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
