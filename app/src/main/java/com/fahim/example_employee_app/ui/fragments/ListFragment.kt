@@ -28,6 +28,8 @@ class ListFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private lateinit var adapter : EmployeeListAdapter
+
     private val listViewModel : ListViewModel by viewModels {
         viewModelFactory
     }
@@ -39,11 +41,21 @@ class ListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_list, container, false)
-        val adapter = EmployeeListAdapter(listViewModel,R.layout.list_item_layout)
-        listViewModel.allEmployeeListLD.observe(this, Observer(adapter::submitList))
+        initView(root)
+        handleLiveData()
+        return root
+    }
+
+    private fun initView(root:View){
+        adapter = EmployeeListAdapter(listViewModel,R.layout.list_item_layout)
+
         val recyclerView = root.findViewById(R.id.rv) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
+    }
+
+    private fun handleLiveData(){
+        listViewModel.allEmployeeListLD.observe(this, Observer(adapter::submitList))
 
         listViewModel.navigateToDetailActivityLD.observe(this, Observer {
             val intent = Intent(activity,DetailActivity::class.java)
@@ -51,7 +63,5 @@ class ListFragment : Fragment() {
             startActivity(intent)
             activity?.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         })
-
-        return root
     }
 }

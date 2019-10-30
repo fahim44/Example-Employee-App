@@ -43,9 +43,14 @@ class RemoveListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_remove_list, container, false)
+        initView(root)
+        handleLiveData()
+        setSwipeFunctionality()
+        return root
+    }
 
+    private fun initView(root:View){
         adapter = EmployeeListAdapter(removeListViewModel,R.layout.remove_list_item_layout)
-        removeListViewModel.allEmployeeListLD.observe(this, Observer(adapter::submitList))
         recyclerView = root.findViewById(R.id.rv) as RecyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
         recyclerView?.adapter = adapter
@@ -55,6 +60,10 @@ class RemoveListFragment : Fragment() {
             startActivity(intent)
             activity?.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         }
+    }
+
+    private fun handleLiveData(){
+        removeListViewModel.allEmployeeListLD.observe(this, Observer(adapter::submitList))
 
         removeListViewModel.navigateToAddEditActivityLD.observe(this, Observer {
             val intent = Intent(activity,AddOrEditActivity::class.java)
@@ -62,10 +71,6 @@ class RemoveListFragment : Fragment() {
             startActivity(intent)
             activity?.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         })
-
-        setSwipeFunctionality()
-
-        return root
     }
 
     private fun setSwipeFunctionality(){
@@ -77,9 +82,7 @@ class RemoveListFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 showDeleteDialog(viewHolder.adapterPosition)
-            }
-        }
-        ).attachToRecyclerView(recyclerView)
+            } }).attachToRecyclerView(recyclerView)
     }
 
 
