@@ -9,20 +9,13 @@ import com.fahim.example_employee_app.models.Employee
 import com.fahim.example_employee_app.repositories.EmployeeRepository
 import javax.inject.Inject
 
-class SearchViewModel(application: Application) : BaseViewModel(application) {
-
-    @Inject
-    lateinit var repository: EmployeeRepository
+class SearchViewModel @Inject constructor(private val repository: EmployeeRepository) : BaseViewModel() {
 
     var searchedEmployeeListLD : LiveData<PagedList<Employee>>? = null
 
     private val _navigateToDetailActivityMLD = MutableLiveData<Int>()
     val navigateToDetailActivityLD : LiveData<Int> = _navigateToDetailActivityMLD
 
-    init {
-        (application as EmployeeApplication).component.inject(this)
-
-    }
 
     fun search(name:String){
         searchedEmployeeListLD = repository.getSearchedEmployeeList(name)

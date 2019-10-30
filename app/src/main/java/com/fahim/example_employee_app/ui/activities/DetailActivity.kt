@@ -3,22 +3,36 @@ package com.fahim.example_employee_app.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.fahim.example_employee_app.EmployeeApplication
 import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.databinding.ActivityDetailBinding
 import com.fahim.example_employee_app.utils.EmployeeKeys
+import com.fahim.example_employee_app.viewmodels.AddOrEditViewModel
 import com.fahim.example_employee_app.viewmodels.DetailViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
+import javax.inject.Inject
 
 class DetailActivity : AppCompatActivity() {
 
-    lateinit var viewModel: DetailViewModel
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel : DetailViewModel by viewModels {
+        viewModelFactory
+    }
+
     private var uid = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        (application as EmployeeApplication).component.inject(this)
 
         val binding: ActivityDetailBinding = DataBindingUtil.setContentView(
             this, R.layout.activity_detail)
@@ -26,7 +40,6 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.detaiil_page)
 
-        viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
         if (intent.hasExtra(EmployeeKeys.EMPLOYEE_ID)) {
             uid = intent.getIntExtra(EmployeeKeys.EMPLOYEE_ID,0)
             viewModel.getEmployee(uid).observe(this, Observer {

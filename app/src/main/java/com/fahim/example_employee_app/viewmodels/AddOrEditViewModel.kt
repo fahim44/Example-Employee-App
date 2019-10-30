@@ -1,19 +1,12 @@
 package com.fahim.example_employee_app.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import com.fahim.example_employee_app.EmployeeApplication
+import androidx.lifecycle.ViewModel
 import com.fahim.example_employee_app.models.Employee
 import com.fahim.example_employee_app.repositories.EmployeeRepository
 import javax.inject.Inject
 
-class AddOrEditViewModel(application: Application) : AndroidViewModel(application) {
-    @Inject
-    lateinit var repository: EmployeeRepository
+class AddOrEditViewModel @Inject constructor(private val repository: EmployeeRepository) : ViewModel() {
 
-    init {
-        (application as EmployeeApplication).component.inject(this)
-    }
 
     fun getEmployee(uid:Int) = repository.getEmployee(uid)
 

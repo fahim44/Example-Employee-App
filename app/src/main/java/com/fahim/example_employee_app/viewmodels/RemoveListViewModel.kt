@@ -9,21 +9,12 @@ import com.fahim.example_employee_app.models.Employee
 import com.fahim.example_employee_app.repositories.EmployeeRepository
 import javax.inject.Inject
 
-class RemoveListViewModel(application: Application) : BaseViewModel(application) {
+class RemoveListViewModel @Inject constructor(private val repository: EmployeeRepository) : BaseViewModel() {
 
-    @Inject
-    lateinit var repository: EmployeeRepository
-
-    val allEmployeeListLD : LiveData<PagedList<Employee>>
+    val allEmployeeListLD = repository.getAllEmployees()
 
     private val _navigateToAddEditActivityMLD = MutableLiveData<Int>()
     val navigateToAddEditActivityLD : LiveData<Int> = _navigateToAddEditActivityMLD
-
-    init {
-        (application as EmployeeApplication).component.inject(this)
-
-        allEmployeeListLD = repository.getAllEmployees()
-    }
 
 
     fun delete(employee: Employee?){
@@ -31,6 +22,7 @@ class RemoveListViewModel(application: Application) : BaseViewModel(application)
             repository.deleteEmployee(it)
         }
     }
+
 
     override fun onItemClick(id: Int) {
         _navigateToAddEditActivityMLD.value = id

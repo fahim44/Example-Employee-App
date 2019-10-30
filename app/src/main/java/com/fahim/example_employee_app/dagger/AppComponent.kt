@@ -1,7 +1,11 @@
 package com.fahim.example_employee_app.dagger
 
+import com.fahim.example_employee_app.ui.activities.AddOrEditActivity
+import com.fahim.example_employee_app.ui.activities.DetailActivity
 import com.fahim.example_employee_app.ui.activities.MainActivity
-import com.fahim.example_employee_app.viewmodels.*
+import com.fahim.example_employee_app.ui.fragments.ListFragment
+import com.fahim.example_employee_app.ui.fragments.RemoveListFragment
+import com.fahim.example_employee_app.ui.fragments.SearchFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -14,17 +18,15 @@ import javax.inject.Singleton
     ViewModelModule::class])
 interface AppComponent{
 
-
     fun inject(target: MainActivity)
 
-    fun inject(target: ListViewModel)
+    fun inject(target: ListFragment)
 
-    fun inject(target: SearchViewModel)
+    fun inject(target: SearchFragment)
 
-    fun inject(target: RemoveListViewModel)
+    fun inject(target: RemoveListFragment)
 
-    fun inject(target: DetailViewModel)
+    fun inject(target: DetailActivity)
 
-    fun inject(target: AddOrEditViewModel)
-
+    fun inject(target: AddOrEditActivity)
 }

@@ -4,19 +4,29 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.fahim.example_employee_app.EmployeeApplication
 import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.databinding.ActivityAddOrEditBinding
 import com.fahim.example_employee_app.utils.EmployeeKeys
 import com.fahim.example_employee_app.viewmodels.AddOrEditViewModel
+import com.fahim.example_employee_app.viewmodels.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_add_or_edit.*
+import javax.inject.Inject
 
 class AddOrEditActivity : AppCompatActivity() {
 
-    lateinit var viewModel: AddOrEditViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel : AddOrEditViewModel by viewModels {
+        viewModelFactory
+    }
 
     // if uid < 0, then add, if uid>=0, then edit employee
     private var uid = -1
@@ -26,13 +36,13 @@ class AddOrEditActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        (application as EmployeeApplication).component.inject(this)
+
         val binding: ActivityAddOrEditBinding = DataBindingUtil.setContentView(
             this, R.layout.activity_add_or_edit)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-        viewModel = ViewModelProviders.of(this).get(AddOrEditViewModel::class.java)
 
         /// edit employee
         if (intent.hasExtra(EmployeeKeys.EMPLOYEE_ID)) {
