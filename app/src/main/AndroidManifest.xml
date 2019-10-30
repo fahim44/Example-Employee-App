@@ -14,8 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activities.DetailActivity"></activity>
-        <activity android:name=".ui.activities.AddOrEditActivity"></activity>
+        <activity android:name=".ui.activities.DetailActivity"
+            android:configChanges="orientation|screenSize|screenLayout"/>
+        <activity android:name=".ui.activities.AddOrEditActivity"
+            android:configChanges="orientation|screenSize|screenLayout"/>
         <activity
             android:name=".ui.activities.TabPageActivity"
             android:label="@string/title_activity_tab_page" />

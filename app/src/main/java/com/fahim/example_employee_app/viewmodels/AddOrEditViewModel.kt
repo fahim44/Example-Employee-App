@@ -8,6 +8,8 @@ import javax.inject.Inject
 class AddOrEditViewModel @Inject constructor(private val repository: EmployeeRepository) : ViewModel() {
 
 
+    var configurationChanged = false
+
     fun getEmployee(uid:Int) = repository.getEmployee(uid)
 
 

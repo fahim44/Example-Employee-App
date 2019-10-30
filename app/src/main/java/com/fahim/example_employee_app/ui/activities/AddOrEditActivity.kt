@@ -1,6 +1,7 @@
 package com.fahim.example_employee_app.ui.activities
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -88,9 +89,17 @@ class AddOrEditActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val myIntent = Intent(this, TabPageActivity::class.java)
-        myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        startActivity(myIntent)
-        finish()
+        if (viewModel.configurationChanged) {
+            val myIntent = Intent(this, TabPageActivity::class.java)
+            myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(myIntent)
+            finish()
+        }else
+            super.onBackPressed()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        viewModel.configurationChanged = true
+        super.onConfigurationChanged(newConfig)
     }
 }

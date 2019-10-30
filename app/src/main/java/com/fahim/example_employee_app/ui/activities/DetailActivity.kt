@@ -14,6 +14,7 @@ import com.fahim.example_employee_app.viewmodels.DetailViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
 import android.content.Intent
+import android.content.res.Configuration
 import com.fahim.example_employee_app.R
 
 
@@ -60,9 +61,17 @@ class DetailActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if(uid>=0)
             viewModel.updateRating(uid, rating_bar.rating)
-        val myIntent = Intent(this, TabPageActivity::class.java)
-        myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        startActivity(myIntent)
-        finish()
+        if (viewModel.configurationChanged) {
+            val myIntent = Intent(this, TabPageActivity::class.java)
+            myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(myIntent)
+            finish()
+        }else
+            super.onBackPressed()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        viewModel.configurationChanged = true
+        super.onConfigurationChanged(newConfig)
     }
 }
