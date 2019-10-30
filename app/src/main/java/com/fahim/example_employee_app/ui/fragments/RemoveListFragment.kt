@@ -49,7 +49,7 @@ class RemoveListFragment : Fragment() {
         recyclerView = root.findViewById(R.id.rv) as RecyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
         recyclerView?.adapter = adapter
-        
+
         root.findViewById<FloatingActionButton>(R.id.fab_add).setOnClickListener {
             val intent = Intent(activity, AddOrEditActivity::class.java)
             startActivity(intent)
