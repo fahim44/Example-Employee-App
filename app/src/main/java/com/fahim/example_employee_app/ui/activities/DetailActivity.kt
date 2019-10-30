@@ -7,15 +7,15 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.fahim.example_employee_app.EmployeeApplication
-import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.databinding.ActivityDetailBinding
 import com.fahim.example_employee_app.utils.EmployeeKeys
-import com.fahim.example_employee_app.viewmodels.AddOrEditViewModel
 import com.fahim.example_employee_app.viewmodels.DetailViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
+import android.content.Intent
+import com.fahim.example_employee_app.R
+
 
 class DetailActivity : AppCompatActivity() {
 
@@ -60,6 +60,9 @@ class DetailActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if(uid>=0)
             viewModel.updateRating(uid, rating_bar.rating)
-        super.onBackPressed()
+        val myIntent = Intent(this, TabPageActivity::class.java)
+        myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(myIntent)
+        finish()
     }
 }

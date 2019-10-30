@@ -1,5 +1,6 @@
 package com.fahim.example_employee_app.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,13 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.fahim.example_employee_app.EmployeeApplication
 import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.databinding.ActivityAddOrEditBinding
 import com.fahim.example_employee_app.utils.EmployeeKeys
 import com.fahim.example_employee_app.viewmodels.AddOrEditViewModel
-import com.fahim.example_employee_app.viewmodels.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_add_or_edit.*
 import javax.inject.Inject
 
@@ -86,5 +85,12 @@ class AddOrEditActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        val myIntent = Intent(this, TabPageActivity::class.java)
+        myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(myIntent)
+        finish()
     }
 }

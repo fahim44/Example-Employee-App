@@ -14,5 +14,8 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideRepository(dao:EmployeeDao, dataService:DummyDataService, preference: SharedPreference, taskUtils: TaskUtils) = EmployeeRepository(dao,dataService,preference,taskUtils)
+    fun provideRepository(dao:EmployeeDao, dataService:DummyDataService,
+                          preference: SharedPreference,
+                          taskUtils: TaskUtils)
+            = EmployeeRepository(dao,dataService,preference,taskUtils)
 }
