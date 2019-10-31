@@ -8,26 +8,26 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.fahim.example_employee_app.EmployeeApplication
 import com.fahim.example_employee_app.R
-import com.fahim.example_employee_app.viewmodel.MainActivityViewModel
+import com.fahim.example_employee_app.viewmodel.LauncherViewModel
 import javax.inject.Inject
 
 
-class MainActivity : AppCompatActivity() {
+class LauncherActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel : MainActivityViewModel by viewModels {
+    private val viewModel : LauncherViewModel by viewModels {
         viewModelFactory
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_launcher)
 
         (application as EmployeeApplication).component.inject(this)
         supportActionBar?.hide()
-        //viewModel = ViewModelProviders.of(this,viewModelFactory).get(MainActivityViewModel::class.java)
+        //viewModel = ViewModelProviders.of(this,viewModelFactory).get(LauncherViewModel::class.java)
         //viewModel = createViewModel { (application as EmployeeApplication).component.provideMainViewModel() }
         viewModel.checkExistingData()
 

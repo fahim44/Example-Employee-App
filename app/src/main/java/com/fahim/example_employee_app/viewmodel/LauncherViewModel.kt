@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.fahim.example_employee_app.repository.EmployeeRepository
 import javax.inject.Inject
 
-class MainActivityViewModel @Inject constructor(private val repository: EmployeeRepository) : ViewModel() {
+class LauncherViewModel @Inject constructor(private val repository: EmployeeRepository) : ViewModel() {
     
     private val _navigateToTabActivityMLD = MutableLiveData<Boolean>()
 

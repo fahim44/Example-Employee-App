@@ -16,10 +16,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.activity.DetailActivity"/>
         <activity android:name=".ui.activity.AddOrEditActivity"/>
-        <activity
-            android:name=".ui.activity.TabPageActivity"
-            android:label="@string/title_activity_tab_page" />
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.TabPageActivity" />
+        <activity android:name=".ui.activity.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -2,7 +2,7 @@ package com.fahim.example_employee_app.di
 
 import com.fahim.example_employee_app.ui.activity.AddOrEditActivity
 import com.fahim.example_employee_app.ui.activity.DetailActivity
-import com.fahim.example_employee_app.ui.activity.MainActivity
+import com.fahim.example_employee_app.ui.activity.LauncherActivity
 import com.fahim.example_employee_app.ui.fragment.ListFragment
 import com.fahim.example_employee_app.ui.fragment.RemoveListFragment
 import com.fahim.example_employee_app.ui.fragment.SearchFragment
@@ -18,7 +18,7 @@ import javax.inject.Singleton
     ViewModelModule::class])
 interface AppComponent{
 
-    fun inject(target: MainActivity)
+    fun inject(target: LauncherActivity)
 
     fun inject(target: ListFragment)
 

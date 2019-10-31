@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -39,9 +38,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Name: "
+                            android:text="@string/name_"
                             android:textStyle="bold"
-                            android:textSize="30sp"
+                            android:textSize="25sp"
                             android:layout_gravity="center_vertical"/>
                         <androidx.cardview.widget.CardView
                             android:layout_width="0dp"
@@ -53,10 +52,10 @@
                                 android:id="@+id/et_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textSize="30sp"
+                                android:textSize="25sp"
                                 android:layout_margin="5dp"
                                 android:text="@{obj.name}"
-                                android:hint="Name"/>
+                                android:hint="@string/name"/>
                         </androidx.cardview.widget.CardView>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -76,9 +75,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Id: "
+                            android:text="@string/id_"
                             android:textStyle="bold"
-                            android:textSize="30sp"
+                            android:textSize="25sp"
                             android:layout_gravity="center_vertical"/>
                         <androidx.cardview.widget.CardView
                             android:layout_width="0dp"
@@ -90,10 +89,10 @@
                                 android:id="@+id/et_id"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textSize="30sp"
+                                android:textSize="25sp"
                                 android:layout_margin="5dp"
                                 android:text="@{Integer.toString(obj.id)}"
-                                android:hint="Id"
+                                android:hint="@string/id"
                                 android:inputType="number"/>
                         </androidx.cardview.widget.CardView>
                     </LinearLayout>
@@ -114,9 +113,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Age: "
+                            android:text="@string/age_"
                             android:textStyle="bold"
-                            android:textSize="30sp"
+                            android:textSize="25sp"
                             android:layout_gravity="center_vertical"/>
                         <androidx.cardview.widget.CardView
                             android:layout_width="0dp"
@@ -128,11 +127,11 @@
                                 android:id="@+id/et_age"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textSize="30sp"
+                                android:textSize="25sp"
                                 android:layout_margin="5dp"
                                 android:text="@{Integer.toString(obj.age)}"
                                 android:inputType="number"
-                                android:hint="Age"/>
+                                android:hint="@string/age"/>
                         </androidx.cardview.widget.CardView>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -153,9 +152,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Salary: "
+                            android:text="@string/salary_"
                             android:textStyle="bold"
-                            android:textSize="30sp"
+                            android:textSize="25sp"
                             android:layout_gravity="center_vertical"/>
                         <androidx.cardview.widget.CardView
                             android:layout_width="0dp"
@@ -167,11 +166,11 @@
                                 android:id="@+id/et_salary"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textSize="30sp"
+                                android:textSize="25sp"
                                 android:layout_margin="5dp"
                                 android:text="@{Float.toString(obj.salary)}"
                                 android:inputType="numberDecimal"
-                                android:hint="Salary"/>
+                                android:hint="@string/salary"/>
                         </androidx.cardview.widget.CardView>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

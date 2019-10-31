@@ -14,8 +14,8 @@ import dagger.multibindings.IntoMap
 abstract class ViewModelModule {
     @Binds
     @IntoMap
-    @ViewModelKey(MainActivityViewModel::class)
-    abstract fun bindMainActivityViewModel(userViewModel: MainActivityViewModel): ViewModel
+    @ViewModelKey(LauncherViewModel::class)
+    abstract fun bindLauncherViewModel(userViewModel: LauncherViewModel): ViewModel
 
 
     @Binds
