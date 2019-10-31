@@ -14,14 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activities.DetailActivity"
-            android:configChanges="orientation|screenSize|screenLayout"/>
-        <activity android:name=".ui.activities.AddOrEditActivity"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+        <activity android:name=".ui.activity.DetailActivity"/>
+        <activity android:name=".ui.activity.AddOrEditActivity"/>
         <activity
-            android:name=".ui.activities.TabPageActivity"
+            android:name=".ui.activity.TabPageActivity"
             android:label="@string/title_activity_tab_page" />
-        <activity android:name=".ui.activities.MainActivity">
+        <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -7,9 +7,9 @@ import androidx.lifecycle.Observer
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.fahim.example_employee_app.models.Employee
-import com.fahim.example_employee_app.room.EmployeeDao
-import com.fahim.example_employee_app.room.EmployeeDatabase
+import com.fahim.example_employee_app.model.Employee
+import com.fahim.example_employee_app.db.EmployeeDao
+import com.fahim.example_employee_app.db.EmployeeDatabase
 import org.junit.After
 
 import org.junit.Test

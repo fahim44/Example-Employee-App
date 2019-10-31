@@ -1,9 +1,9 @@
 package com.fahim.example_employee_app
 
 import android.app.Application
-import com.fahim.example_employee_app.dagger.AppComponent
-import com.fahim.example_employee_app.dagger.AppModule
-import com.fahim.example_employee_app.dagger.DaggerAppComponent
+import com.fahim.example_employee_app.di.AppComponent
+import com.fahim.example_employee_app.di.AppModule
+import com.fahim.example_employee_app.di.DaggerAppComponent
 
 
 class EmployeeApplication : Application() {

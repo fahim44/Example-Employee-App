@@ -20,7 +20,7 @@
 # hide the original source file name.
 -renamesourcefileattribute SourceFile
 
--keep class com.fahim.example_employee_ap.models.** { *; }
+-keep class com.fahim.example_employee_ap.model.** { *; }
 
 # Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
 # EnclosingMethod is required to use InnerClasses.

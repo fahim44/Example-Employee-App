@@ -6,7 +6,7 @@
     <data>
         <variable
             name="obj"
-            type="com.fahim.example_employee_app.models.Employee" />
+            type="com.fahim.example_employee_app.model.Employee" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -21,7 +21,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:context=".ui.activities.DetailActivity"
+                tools:context=".ui.activity.DetailActivity"
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView

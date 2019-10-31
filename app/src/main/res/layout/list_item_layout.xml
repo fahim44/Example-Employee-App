@@ -4,11 +4,11 @@
     <data>
         <variable
             name="obj"
-            type="com.fahim.example_employee_app.models.Employee" />
+            type="com.fahim.example_employee_app.model.Employee" />
 
         <variable
             name="viewModel"
-            type="com.fahim.example_employee_app.viewmodels.BaseViewModel" />
+            type="com.fahim.example_employee_app.viewmodel.BaseViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
