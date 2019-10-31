@@ -8,14 +8,17 @@ import androidx.paging.toLiveData
 import com.fahim.example_employee_app.model.Employee
 import com.fahim.example_employee_app.api.DummyDataService
 import com.fahim.example_employee_app.db.EmployeeDao
-import com.fahim.example_employee_app.util.SharedPreference
+import com.fahim.example_employee_app.preference.SharedPreference
 import com.fahim.example_employee_app.util.TaskUtils
 import com.fahim.example_employee_app.util.ioThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class EmployeeRepository(private val dao : EmployeeDao, private val dataService: DummyDataService, private val preference: SharedPreference, private val taskUtils: TaskUtils) {
+@Singleton
+class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, private val dataService: DummyDataService, private val preference: SharedPreference, private val taskUtils: TaskUtils) {
 
     private val _dummyDataLoadedMLD = MutableLiveData<Boolean>()
 

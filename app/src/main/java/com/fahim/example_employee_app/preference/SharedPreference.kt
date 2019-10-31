@@ -1,11 +1,13 @@
-package com.fahim.example_employee_app.util
+package com.fahim.example_employee_app.preference
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class SharedPreference (context : Context) {
+@Singleton
+class SharedPreference @Inject constructor(context : Context) {
     companion object{
         private const val PREFERENCE_NAME = "example_employee_app"
         private const val DUMMY_DATA_DOWNLOADED = "dummy_data_downloaded"
