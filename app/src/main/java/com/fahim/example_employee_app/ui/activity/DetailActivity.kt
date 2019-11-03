@@ -16,9 +16,10 @@ import javax.inject.Inject
 import android.content.Intent
 import android.content.res.Configuration
 import com.fahim.example_employee_app.R
+import dagger.android.support.DaggerAppCompatActivity
 
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : DaggerAppCompatActivity() {
 
 
     @Inject
@@ -32,8 +33,6 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        (application as EmployeeApplication).component.inject(this)
 
         val binding: ActivityDetailBinding = DataBindingUtil.setContentView(
             this, R.layout.activity_detail)

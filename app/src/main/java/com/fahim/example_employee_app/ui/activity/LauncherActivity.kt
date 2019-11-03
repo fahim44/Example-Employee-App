@@ -9,10 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.fahim.example_employee_app.EmployeeApplication
 import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.viewmodel.LauncherViewModel
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
 
-class LauncherActivity : AppCompatActivity() {
+class LauncherActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -24,8 +25,6 @@ class LauncherActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launcher)
-
-        (application as EmployeeApplication).component.inject(this)
         supportActionBar?.hide()
         //viewModel = ViewModelProviders.of(this,viewModelFactory).get(LauncherViewModel::class.java)
         //viewModel = createViewModel { (application as EmployeeApplication).component.provideMainViewModel() }

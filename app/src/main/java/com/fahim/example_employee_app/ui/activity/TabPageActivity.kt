@@ -10,9 +10,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.fahim.example_employee_app.R
 import android.content.Intent
 import android.content.res.Configuration
+import dagger.android.support.DaggerAppCompatActivity
 
 
-class TabPageActivity : AppCompatActivity() {
+class TabPageActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

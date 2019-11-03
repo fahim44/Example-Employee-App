@@ -1,4 +1,4 @@
-package com.fahim.example_employee_app.di
+package com.fahim.example_employee_app.di.appModule
 
 import android.content.Context
 import androidx.room.Room

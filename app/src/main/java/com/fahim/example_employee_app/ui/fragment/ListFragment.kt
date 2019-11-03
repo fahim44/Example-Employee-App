@@ -18,9 +18,10 @@ import com.fahim.example_employee_app.adapter.EmployeeListAdapter
 import com.fahim.example_employee_app.ui.activity.DetailActivity
 import com.fahim.example_employee_app.util.EmployeeKeys
 import com.fahim.example_employee_app.viewmodel.ListViewModel
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class ListFragment : Fragment() {
+class ListFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -29,11 +30,6 @@ class ListFragment : Fragment() {
 
     private val listViewModel : ListViewModel by viewModels {
         viewModelFactory
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity?.application as EmployeeApplication).component.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

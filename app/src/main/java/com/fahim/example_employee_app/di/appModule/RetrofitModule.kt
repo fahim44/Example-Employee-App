@@ -1,4 +1,4 @@
-package com.fahim.example_employee_app.di
+package com.fahim.example_employee_app.di.appModule
 
 import com.fahim.example_employee_app.api.DummyDataService
 import dagger.Module

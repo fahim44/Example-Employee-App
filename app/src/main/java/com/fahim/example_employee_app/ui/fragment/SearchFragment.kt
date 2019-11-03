@@ -9,23 +9,22 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fahim.example_employee_app.EmployeeApplication
 import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.adapter.EmployeeListAdapter
 import com.fahim.example_employee_app.model.Employee
 import com.fahim.example_employee_app.ui.activity.DetailActivity
 import com.fahim.example_employee_app.util.EmployeeKeys
 import com.fahim.example_employee_app.viewmodel.SearchViewModel
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class SearchFragment : Fragment() {
+class SearchFragment : DaggerFragment() {
 
 
     private var recyclerView: RecyclerView? = null
@@ -38,11 +37,6 @@ class SearchFragment : Fragment() {
 
     private val searchViewModel : SearchViewModel by viewModels {
         viewModelFactory
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity?.application as EmployeeApplication).component.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

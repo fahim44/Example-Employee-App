@@ -1,4 +1,4 @@
-package com.fahim.example_employee_app.di
+package com.fahim.example_employee_app.di.anotation
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

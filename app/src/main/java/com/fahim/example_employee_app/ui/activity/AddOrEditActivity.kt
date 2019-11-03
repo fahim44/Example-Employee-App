@@ -16,10 +16,11 @@ import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.databinding.ActivityAddOrEditBinding
 import com.fahim.example_employee_app.util.EmployeeKeys
 import com.fahim.example_employee_app.viewmodel.AddOrEditViewModel
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_add_or_edit.*
 import javax.inject.Inject
 
-class AddOrEditActivity : AppCompatActivity() {
+class AddOrEditActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -35,8 +36,6 @@ class AddOrEditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        (application as EmployeeApplication).component.inject(this)
 
         val binding: ActivityAddOrEditBinding = DataBindingUtil.setContentView(
             this, R.layout.activity_add_or_edit)
