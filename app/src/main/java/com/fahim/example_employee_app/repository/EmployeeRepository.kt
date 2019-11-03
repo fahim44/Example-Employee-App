@@ -9,8 +9,8 @@ import com.fahim.example_employee_app.model.Employee
 import com.fahim.example_employee_app.api.DummyDataService
 import com.fahim.example_employee_app.db.EmployeeDao
 import com.fahim.example_employee_app.preference.SharedPreference
+import com.fahim.example_employee_app.util.AppExecutors
 import com.fahim.example_employee_app.util.TaskUtils
-import com.fahim.example_employee_app.util.ioThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,7 +18,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, private val dataService: DummyDataService, private val preference: SharedPreference, private val taskUtils: TaskUtils) {
+class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, private val dataService: DummyDataService, private val preference: SharedPreference, private val taskUtils: TaskUtils, private val executor : AppExecutors) {
 
     private val _dummyDataLoadedMLD = MutableLiveData<Boolean>()
 
@@ -40,11 +40,11 @@ class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, priv
         InsertEmployeeAsyncTask(dao,employees,_dummyDataLoadedMLD).execute()
     }
 
-    fun updateEmployeeRating(id: Int, rating : Float) =  ioThread { dao.updateRating(id,rating) }
+    fun updateEmployeeRating(id: Int, rating : Float) =  executor.diskIOExecute { dao.updateRating(id,rating) }
 
-    fun updateEmployee(employee: Employee) = ioThread { dao.update(employee) }
+    fun updateEmployee(employee: Employee) = executor.diskIOExecute { dao.update(employee) }
 
-    fun deleteEmployee(employee: Employee) = ioThread { dao.delete(employee) }
+    fun deleteEmployee(employee: Employee) = executor.diskIOExecute { dao.delete(employee) }
 
 
     fun getDummyDataFromServiceAndLoadToLocalDB() : LiveData<Boolean> {

@@ -7,13 +7,10 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [DatabaseModule::class,
+    RetrofitModule::class])
 class AppModule(private val app: Application) {
     @Provides
     @Singleton
     fun provideContext(): Context = app.applicationContext
-
-    @Provides
-    @Singleton
-    fun provideTaskUtils(context: Context) = TaskUtils(context)
 }

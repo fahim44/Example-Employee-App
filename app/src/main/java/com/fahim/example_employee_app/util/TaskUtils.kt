@@ -2,10 +2,10 @@ package com.fahim.example_employee_app.util
 
 import android.content.Context
 import android.net.ConnectivityManager
+import javax.inject.Inject
 
 
-
-class TaskUtils(private val context: Context) {
+class TaskUtils @Inject constructor(private val context: Context) {
 
     fun isInternetAvailable(): Boolean {
         val connectivityManager =

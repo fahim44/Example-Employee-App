@@ -11,8 +11,6 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [AppModule::class,
-    DatabaseModule::class,
-    RetrofitModule::class,
     ViewModelModule::class])
 interface AppComponent{
 
