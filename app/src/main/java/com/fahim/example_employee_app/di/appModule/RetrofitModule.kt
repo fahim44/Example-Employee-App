@@ -1,21 +1,27 @@
 package com.fahim.example_employee_app.di.appModule
 
 import com.fahim.example_employee_app.api.DummyDataService
+import com.orhanobut.logger.Logger
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
+
 @Module
 class RetrofitModule {
+
 
     @Provides
     @Singleton
     @Named("base_url")
     fun provideUrl() = "http://dummy.restapiexample.com/api/v1/"
+
 
     @Provides
     @Singleton
@@ -24,12 +30,37 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(@Named("base_url") url : String, converter: Converter.Factory): Retrofit {
+    fun provideLoggingInterceptor() : HttpLoggingInterceptor {
+        val logging = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+            override fun log(message: String) {
+                Logger.log(Logger.INFO,"OkHttp",message,null)
+            } })
+        logging.level = HttpLoggingInterceptor.Level.BODY
+        logging.redactHeader("Authorization")
+        logging.redactHeader("Cookie")
+        return logging
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideOkHttp(interceptor: HttpLoggingInterceptor) : OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(@Named("base_url") url : String, converter: Converter.Factory, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(url)
             .addConverterFactory(converter)
+            .client(client)
             .build()
     }
+
 
     @Provides
     @Singleton
