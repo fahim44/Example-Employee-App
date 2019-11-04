@@ -44,7 +44,13 @@ class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, priv
 
     fun updateEmployeeRating(id: Int, rating : Float) =  executor.diskIOExecute { dao.updateRating(id,rating) }
 
-    fun updateEmployee(employee: Employee) = executor.diskIOExecute { dao.update(employee) }
+    suspend fun updateEmployee(employee: Employee) : Boolean {
+        var result = 0
+        withContext(Dispatchers.IO){
+            result = dao.update(employee)
+        }
+        return (result!= 0)
+    }
 
     fun deleteEmployee(employee: Employee) = executor.diskIOExecute { dao.delete(employee) }
 

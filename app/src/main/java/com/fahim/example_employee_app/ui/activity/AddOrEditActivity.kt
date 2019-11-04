@@ -1,17 +1,14 @@
 package com.fahim.example_employee_app.ui.activity
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.fahim.example_employee_app.EmployeeApplication
 import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.databinding.ActivityAddOrEditBinding
 import com.fahim.example_employee_app.util.EmployeeKeys
@@ -29,10 +26,6 @@ class AddOrEditActivity : DaggerAppCompatActivity() {
         viewModelFactory
     }
 
-    // if uid < 0, then add, if uid>=0, then edit employee
-    private var uid = -1
-    private var rating = 0.0f
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,18 +33,19 @@ class AddOrEditActivity : DaggerAppCompatActivity() {
         val binding: ActivityAddOrEditBinding = DataBindingUtil.setContentView(
             this, R.layout.activity_add_or_edit)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        handleLiveData()
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         /// edit employee
         if (intent.hasExtra(EmployeeKeys.EMPLOYEE_ID)) {
-            uid = intent.getIntExtra(EmployeeKeys.EMPLOYEE_ID,0)
+            viewModel.uid = intent.getIntExtra(EmployeeKeys.EMPLOYEE_ID,-1)
 
             supportActionBar?.title = getString(R.string.edit_page)
 
-            viewModel.getEmployee(uid).observe(this, Observer {
+            viewModel.getEmployee(viewModel.uid).observe(this, Observer {
                 binding.obj = it
-                rating = it.rating
+                viewModel.rating = it.rating
             })
         }
         // add new employee
@@ -75,13 +69,7 @@ class AddOrEditActivity : DaggerAppCompatActivity() {
             val id = et_id.text.toString()
             val age = et_age.text.toString()
             val salary = et_salary.text.toString()
-            if(viewModel.validateInput(name,id,age,salary)){
-                viewModel.addOrEditEmployee(uid,name,id,age,salary,rating)
-                Toast.makeText(this,"Success!!!",Toast.LENGTH_SHORT).show()
-                onBackPressed()
-            }else{
-                Toast.makeText(this,"Please input valid info",Toast.LENGTH_SHORT).show()
-            }
+            viewModel.doneButtonPressed(name,id,age,salary)
             return true
         }
         return super.onOptionsItemSelected(item)
@@ -94,5 +82,15 @@ class AddOrEditActivity : DaggerAppCompatActivity() {
         overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out)
         finish()
 
+    }
+
+    private fun handleLiveData() {
+        viewModel.toastLD.observe(this, Observer {
+            Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
+        })
+        viewModel.onBackPressLD.observe(this, Observer {
+            if(it)
+                onBackPressed()
+        })
     }
 }

@@ -17,7 +17,7 @@ interface EmployeeDao {
     fun delete(employee: Employee)
 
     @Update
-    fun update(employee: Employee)
+    fun update(employee: Employee) : Int
 
     @Query("SELECT * FROM employee ORDER BY id ASC")
     fun getAllEmployees(): DataSource.Factory<Int, Employee>

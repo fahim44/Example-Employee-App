@@ -16,4 +16,7 @@
     <string name="id">Id</string>
     <string name="age">Age</string>
     <string name="salary">Salary</string>
+    <string name="success">Success!!!</string>
+    <string name="something_wrong">Something went wrong. Please try again</string>
+    <string name="invalid_info">Please provide valid information</string>
 </resources>
