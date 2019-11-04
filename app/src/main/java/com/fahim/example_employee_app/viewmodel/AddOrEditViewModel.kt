@@ -1,8 +1,10 @@
 package com.fahim.example_employee_app.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.fahim.example_employee_app.model.Employee
 import com.fahim.example_employee_app.repository.EmployeeRepository
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AddOrEditViewModel @Inject constructor(private val repository: EmployeeRepository) : ViewModel() {
@@ -29,7 +31,7 @@ class AddOrEditViewModel @Inject constructor(private val repository: EmployeeRep
     }
 
     private fun addEmployee(name:String, id:Int, age:Int, salary:Float){
-        repository.insertEmployees(listOf(Employee(id,name,salary,age,0.0f)))
+        viewModelScope.launch { repository.insertEmployees(listOf(Employee(id,name,salary,age,0.0f))) }
     }
 
     private fun editEmployee(uid:Int, name:String, id:Int, age:Int, salary:Float, rating:Float){

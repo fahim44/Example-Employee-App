@@ -34,11 +34,6 @@ class LauncherActivity : DaggerAppCompatActivity() {
     }
 
     private fun handleLiveData(){
-        viewModel.dummyDataSetLD.observe(this, Observer {
-            it?.let {
-                viewModel.setPrefInitDataValue(it)
-            } })
-
         viewModel.navigateToTabActivityLD.observe(this, Observer {
             it?.let {
                 if(it)

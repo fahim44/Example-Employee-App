@@ -1,8 +1,5 @@
 package com.fahim.example_employee_app.repository
 
-import android.os.AsyncTask
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.Config
 import androidx.paging.toLiveData
 import com.fahim.example_employee_app.model.Employee
@@ -11,17 +8,14 @@ import com.fahim.example_employee_app.db.EmployeeDao
 import com.fahim.example_employee_app.preference.SharedPreference
 import com.fahim.example_employee_app.util.AppExecutors
 import com.fahim.example_employee_app.util.TaskUtils
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.orhanobut.logger.Logger
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, private val dataService: DummyDataService, private val preference: SharedPreference, private val taskUtils: TaskUtils, private val executor : AppExecutors) {
-
-    private val _dummyDataLoadedMLD = MutableLiveData<Boolean>()
-
 
     fun isDummyDataLoaded() = preference.isInitDataLoaded()
 
@@ -36,8 +30,16 @@ class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, priv
     fun getSearchedEmployeeList(name:String) = dao.employeesSortByName(name).toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
 
 
-    fun insertEmployees(employees: List<Employee>) {
-        InsertEmployeeAsyncTask(dao,employees,_dummyDataLoadedMLD).execute()
+    suspend fun insertEmployees(employees: List<Employee>) : Boolean {
+        var list:List<Long>? = null
+        withContext(Dispatchers.IO){
+            list = dao.insert(*employees.toTypedArray())
+        }
+        if(list==null)
+            return false
+        else if(list!!.isEmpty())
+            return false
+        return true
     }
 
     fun updateEmployeeRating(id: Int, rating : Float) =  executor.diskIOExecute { dao.updateRating(id,rating) }
@@ -47,38 +49,16 @@ class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, priv
     fun deleteEmployee(employee: Employee) = executor.diskIOExecute { dao.delete(employee) }
 
 
-    fun getDummyDataFromServiceAndLoadToLocalDB() : LiveData<Boolean> {
+    suspend fun getDummyDataFromServiceAndLoadToLocalDB() : Boolean {
+        var result = false
         if (taskUtils.isInternetAvailable()) {
-            val call = dataService.getDummyEmployeesData()
-            call.enqueue(object : Callback<List<Employee>> {
-                override fun onResponse(
-                    call: Call<List<Employee>>,
-                    response: Response<List<Employee>>
-                ) {
-                    insertEmployees(response.body()!!)
-                }
-
-                override fun onFailure(call: Call<List<Employee>>, t: Throwable) {
-                    _dummyDataLoadedMLD.value = false
-                }
-            })
-        }else{
-            _dummyDataLoadedMLD.value = false
-        }
-        return _dummyDataLoadedMLD
-    }
-
-    companion object {
-
-        private class InsertEmployeeAsyncTask(private val dao: EmployeeDao,private val employees : List<Employee>, private val liveData : MutableLiveData<Boolean>) : AsyncTask<Unit,Unit,Unit>(){
-            override fun doInBackground(vararg params: Unit?) {
-                dao.insert(*employees.toTypedArray())
-            }
-
-            override fun onPostExecute(result: Unit?) {
-                super.onPostExecute(result)
-                liveData.value = true
+            withContext(Dispatchers.IO){
+                val call = dataService.getDummyEmployeesData()
+                val response = call.execute()
+                Logger.d(response)
+                result = insertEmployees(response.body()!!)
             }
         }
+        return result
     }
 }

@@ -1,6 +1,7 @@
 package com.fahim.example_employee_app.di.appModule
 
 import com.fahim.example_employee_app.api.DummyDataService
+import com.fahim.example_employee_app.util.EmployeeKeys
 import com.orhanobut.logger.Logger
 import dagger.Module
 import dagger.Provides
@@ -19,7 +20,7 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    @Named("base_url")
+    @Named(EmployeeKeys.BASE_URL)
     fun provideUrl() = "http://dummy.restapiexample.com/api/v1/"
 
 
@@ -53,7 +54,7 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(@Named("base_url") url : String, converter: Converter.Factory, client: OkHttpClient): Retrofit {
+    fun provideRetrofit(@Named(EmployeeKeys.BASE_URL) url : String, converter: Converter.Factory, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(url)
             .addConverterFactory(converter)

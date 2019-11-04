@@ -3,7 +3,9 @@ package com.fahim.example_employee_app.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.fahim.example_employee_app.repository.EmployeeRepository
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LauncherViewModel @Inject constructor(private val repository: EmployeeRepository) : ViewModel() {
@@ -12,22 +14,18 @@ class LauncherViewModel @Inject constructor(private val repository: EmployeeRepo
 
     val navigateToTabActivityLD : LiveData<Boolean> = _navigateToTabActivityMLD
 
-    lateinit var dummyDataSetLD : LiveData<Boolean>
-
     //check if data already loaded from server or not( from pref), if it is loaded navigate to next page
     //if it is not loaded, load and save, then set pref value, then navigate to next page
+    //if it is not loaded and failed to load/save data, navigate to next page
     fun checkExistingData(){
         if (!repository.isDummyDataLoaded()){
-            dummyDataSetLD = repository.getDummyDataFromServiceAndLoadToLocalDB()
-        }else {
-            dummyDataSetLD = MutableLiveData<Boolean>()
+            viewModelScope.launch {
+                val result = repository.getDummyDataFromServiceAndLoadToLocalDB()
+                if (result)
+                    repository.setDummyDataLoaded()
+                _navigateToTabActivityMLD.value = true
+            }
+        }else
             _navigateToTabActivityMLD.value = true
-        }
-    }
-
-    fun setPrefInitDataValue(value:Boolean){
-        if(value)
-            repository.setDummyDataLoaded()
-        _navigateToTabActivityMLD.value = true
     }
 }
