@@ -40,7 +40,8 @@ class DetailFragment : DaggerFragment(){
 
         uid = args.uid
         if(uid>=0)
-            viewModel.getEmployee(uid).observe(this, Observer {
+            viewModel.uid = uid
+            viewModel.getEmployee().observe(this, Observer {
                 binding.obj = it
             })
         return binding.root
@@ -48,8 +49,8 @@ class DetailFragment : DaggerFragment(){
 
 
     override fun onPause() {
-        if(uid>=0)
-            viewModel.updateRating(uid, rating_bar.rating)
+
+        viewModel.updateRating(rating_bar.rating)
         super.onPause()
     }
 }

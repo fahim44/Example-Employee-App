@@ -20,3 +20,5 @@ A Simple Android example app.
 * GSON for retrofit data conversion
 
 * android JUnit test
+
+* Kotlin Coroutines

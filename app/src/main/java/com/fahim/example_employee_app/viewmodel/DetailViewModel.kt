@@ -6,7 +6,12 @@ import javax.inject.Inject
 
 class DetailViewModel @Inject constructor(private val repository: EmployeeRepository) : ViewModel() {
 
-    fun getEmployee(uid:Int) = repository.getEmployee(uid)
+    var uid = -1
 
-    fun updateRating(id:Int, rating: Float) = repository.updateEmployeeRating(id,rating)
+    fun getEmployee() = repository.getEmployee(uid)
+
+    fun updateRating(rating: Float) {
+        if (uid>=0)
+            repository.updateEmployeeRating(uid,rating)
+    }
 }
