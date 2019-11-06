@@ -12,14 +12,13 @@ import android.widget.ImageButton
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.adapter.EmployeeListAdapter
 import com.fahim.example_employee_app.model.Employee
-import com.fahim.example_employee_app.ui.activity.DetailActivity
-import com.fahim.example_employee_app.util.EmployeeKeys
 import com.fahim.example_employee_app.viewmodel.SearchViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -68,10 +67,12 @@ class SearchFragment : DaggerFragment() {
 
     private fun handleLiveData(){
         searchViewModel.navigateToDetailActivityLD.observe(this, Observer {
-            val intent = Intent(activity, DetailActivity::class.java)
+            /*val intent = Intent(activity, DetailActivity::class.java)
             intent.putExtra(EmployeeKeys.EMPLOYEE_ID,it)
             startActivity(intent)
-            activity?.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
+            activity?.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)*/
+            val action = SearchFragmentDirections.actionSearchToDetail().setUid(it)
+            findNavController().navigate(action)
         })
     }
 

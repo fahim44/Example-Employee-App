@@ -1,9 +1,11 @@
 package com.fahim.example_employee_app.di.activityModule
 
 import com.fahim.example_employee_app.di.anotation.ChildFragmentScoped
+import com.fahim.example_employee_app.di.fragmentModule.DetailFragmentModule
 import com.fahim.example_employee_app.di.fragmentModule.ListFragmentModule
 import com.fahim.example_employee_app.di.fragmentModule.RemoveListFragmentModule
 import com.fahim.example_employee_app.di.fragmentModule.SearchFragmentModule
+import com.fahim.example_employee_app.ui.fragment.DetailFragment
 import com.fahim.example_employee_app.ui.fragment.ListFragment
 import com.fahim.example_employee_app.ui.fragment.RemoveListFragment
 import com.fahim.example_employee_app.ui.fragment.SearchFragment
@@ -25,4 +27,8 @@ internal abstract class TabPageModule {
     @ChildFragmentScoped
     @ContributesAndroidInjector(modules = [RemoveListFragmentModule::class])
     internal abstract fun remove(): RemoveListFragment
+
+    @ChildFragmentScoped
+    @ContributesAndroidInjector(modules = [DetailFragmentModule::class])
+    internal abstract fun detail(): DetailFragment
 }
