@@ -1,7 +1,6 @@
 package com.fahim.example_employee_app.ui.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -50,6 +49,11 @@ class SearchFragment : DaggerFragment() {
         recyclerView = root.findViewById(R.id.rv) as RecyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
 
+        handleButtonOnClick(root)
+    }
+
+
+    private fun handleButtonOnClick(root:View){
         val et : EditText = root.findViewById(R.id.et_search)
         val ib : ImageButton = root.findViewById(R.id.ib_search)
         ib.setOnClickListener {
