@@ -1,10 +1,8 @@
 package com.fahim.example_employee_app.di
 
-import com.fahim.example_employee_app.di.activityModule.AddOrEditModule
 import com.fahim.example_employee_app.di.activityModule.LauncherModule
 import com.fahim.example_employee_app.di.activityModule.TabPageModule
 import com.fahim.example_employee_app.di.anotation.ActivityScoped
-import com.fahim.example_employee_app.ui.activity.AddOrEditActivity
 import com.fahim.example_employee_app.ui.activity.LauncherActivity
 import com.fahim.example_employee_app.ui.activity.TabPageActivity
 import dagger.Module
@@ -22,13 +20,4 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [TabPageModule::class])
     internal abstract fun tabPageActivity(): TabPageActivity
 
-
-    /*@ActivityScoped
-    @ContributesAndroidInjector(modules = [DetailFragmentModule::class])
-    internal abstract fun detailActivity(): DetailActivity*/
-
-
-    @ActivityScoped
-    @ContributesAndroidInjector(modules = [AddOrEditModule::class])
-    internal abstract fun addOrEditActivity(): AddOrEditActivity
 }

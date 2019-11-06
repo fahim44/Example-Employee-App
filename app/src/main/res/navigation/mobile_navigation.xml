@@ -13,6 +13,10 @@
         <action
             android:id="@+id/action_list_to_detail"
             app:destination="@id/fragment_detail"
+            app:enterAnim="@anim/push_left_in"
+            app:exitAnim="@anim/push_left_out"
+            app:popEnterAnim="@anim/push_right_in"
+            app:popExitAnim="@anim/push_right_out"
             app:popUpTo="@+id/navigation_list"
             app:popUpToInclusive="true">
             <argument
@@ -29,6 +33,10 @@
         <action
             android:id="@+id/action_search_to_detail"
             app:destination="@id/fragment_detail"
+            app:enterAnim="@anim/push_left_in"
+            app:exitAnim="@anim/push_left_out"
+            app:popEnterAnim="@anim/push_right_in"
+            app:popExitAnim="@anim/push_right_out"
             app:popUpTo="@+id/navigation_search"
             app:popUpToInclusive="true">
             <argument
@@ -41,13 +49,39 @@
         android:id="@+id/navigation_add_remove"
         android:name="com.fahim.example_employee_app.ui.fragment.RemoveListFragment"
         android:label="@string/title_remove_list_fragment"
-        tools:layout="@layout/fragment_remove_list" />
+        tools:layout="@layout/fragment_remove_list">
+        <action
+            android:id="@+id/action_add_or_edit"
+            app:destination="@id/fragment_add_or_edit"
+            app:enterAnim="@anim/push_left_in"
+            app:exitAnim="@anim/push_left_out"
+            app:popEnterAnim="@anim/push_right_in"
+            app:popExitAnim="@anim/push_right_out"
+            app:popUpTo="@+id/navigation_add_remove"
+            app:popUpToInclusive="true">
+            <argument
+                android:name="uid"
+                android:defaultValue="-1" />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/fragment_detail"
         android:name="com.fahim.example_employee_app.ui.fragment.DetailFragment"
         android:label="@string/detaiil_page"
         tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="uid"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/fragment_add_or_edit"
+        android:name="com.fahim.example_employee_app.ui.fragment.AddOrEditFragment"
+        android:label="@string/add_page"
+        tools:layout="@layout/fragment_add_or_edit">
         <argument
             android:name="uid"
             app:argType="integer"

@@ -10,13 +10,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.adapter.EmployeeListAdapter
-import com.fahim.example_employee_app.ui.activity.AddOrEditActivity
-import com.fahim.example_employee_app.util.EmployeeKeys
 import com.fahim.example_employee_app.viewmodel.RemoveListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.android.support.DaggerFragment
@@ -49,9 +48,8 @@ class RemoveListFragment : DaggerFragment() {
         recyclerView?.adapter = adapter
 
         root.findViewById<FloatingActionButton>(R.id.fab_add).setOnClickListener {
-            val intent = Intent(activity, AddOrEditActivity::class.java)
-            startActivity(intent)
-            activity?.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
+            val action = RemoveListFragmentDirections.actionAddOrEdit()
+            findNavController().navigate(action)
         }
     }
 
@@ -59,10 +57,8 @@ class RemoveListFragment : DaggerFragment() {
         removeListViewModel.allEmployeeListLD.observe(this, Observer(adapter::submitList))
 
         removeListViewModel.navigateToAddEditActivityLD.observe(this, Observer {
-            val intent = Intent(activity,AddOrEditActivity::class.java)
-            intent.putExtra(EmployeeKeys.EMPLOYEE_ID,it)
-            startActivity(intent)
-            activity?.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
+            val action = RemoveListFragmentDirections.actionAddOrEdit().setUid(it)
+            findNavController().navigate(action)
         })
     }
 

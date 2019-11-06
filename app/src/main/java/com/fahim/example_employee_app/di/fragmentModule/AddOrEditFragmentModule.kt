@@ -1,4 +1,4 @@
-package com.fahim.example_employee_app.di.activityModule
+package com.fahim.example_employee_app.di.fragmentModule
 
 import androidx.lifecycle.ViewModel
 import com.fahim.example_employee_app.di.anotation.ViewModelKey
@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class AddOrEditModule {
+abstract class AddOrEditFragmentModule {
     @Binds
     @IntoMap
     @ViewModelKey(AddOrEditViewModel::class)

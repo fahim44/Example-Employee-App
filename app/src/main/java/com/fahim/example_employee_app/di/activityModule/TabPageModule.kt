@@ -1,14 +1,8 @@
 package com.fahim.example_employee_app.di.activityModule
 
 import com.fahim.example_employee_app.di.anotation.ChildFragmentScoped
-import com.fahim.example_employee_app.di.fragmentModule.DetailFragmentModule
-import com.fahim.example_employee_app.di.fragmentModule.ListFragmentModule
-import com.fahim.example_employee_app.di.fragmentModule.RemoveListFragmentModule
-import com.fahim.example_employee_app.di.fragmentModule.SearchFragmentModule
-import com.fahim.example_employee_app.ui.fragment.DetailFragment
-import com.fahim.example_employee_app.ui.fragment.ListFragment
-import com.fahim.example_employee_app.ui.fragment.RemoveListFragment
-import com.fahim.example_employee_app.ui.fragment.SearchFragment
+import com.fahim.example_employee_app.di.fragmentModule.*
+import com.fahim.example_employee_app.ui.fragment.*
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -31,4 +25,8 @@ internal abstract class TabPageModule {
     @ChildFragmentScoped
     @ContributesAndroidInjector(modules = [DetailFragmentModule::class])
     internal abstract fun detail(): DetailFragment
+
+    @ChildFragmentScoped
+    @ContributesAndroidInjector(modules = [AddOrEditFragmentModule::class])
+    internal abstract fun addOrEdit(): AddOrEditFragment
 }
