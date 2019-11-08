@@ -62,7 +62,8 @@ class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, priv
                 val call = dataService.getDummyEmployeesData()
                 val response = call.execute()
                 Logger.d(response)
-                result = insertEmployees(response.body()!!)
+                if(response.isSuccessful)
+                    result = insertEmployees(response.body()!!)
             }
         }
         return result
