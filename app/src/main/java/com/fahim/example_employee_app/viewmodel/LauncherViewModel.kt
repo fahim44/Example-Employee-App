@@ -5,10 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fahim.example_employee_app.repository.EmployeeRepository
+import com.fahim.example_employee_app.workManager.EmployeeWorkManagerController
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class LauncherViewModel @Inject constructor(private val repository: EmployeeRepository) : ViewModel() {
+class LauncherViewModel @Inject constructor(private val repository: EmployeeRepository, private val workerController : EmployeeWorkManagerController) : ViewModel() {
     
     private val _navigateToTabActivityMLD = MutableLiveData<Boolean>()
 
@@ -21,11 +22,16 @@ class LauncherViewModel @Inject constructor(private val repository: EmployeeRepo
         if (!repository.isDummyDataLoaded()){
             viewModelScope.launch {
                 val result = repository.getDummyDataFromServerAndLoadToLocalDB()
-                if (result)
+                if (result) {
                     repository.setDummyDataLoaded()
+                    workerController.stopDummyDataWorker()
+                }else
+                    workerController.startDummyDataWorker()
                 _navigateToTabActivityMLD.value = true
             }
-        }else
+        }else {
+            workerController.stopDummyDataWorker()
             _navigateToTabActivityMLD.value = true
+        }
     }
 }
