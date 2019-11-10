@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class TaskUtils @Inject constructor(private val context: Context) {
 
-    
+
     @Suppress("DEPRECATION")
     fun isInternetAvailable(): Boolean {
         var result = false
