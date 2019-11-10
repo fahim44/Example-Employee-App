@@ -10,6 +10,7 @@ A Simple Android example app.
      3. Pagination
      4. Databinding
      5. Room
+     6. WorkManager
      
 * androidx library
      
