@@ -55,17 +55,28 @@ class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, priv
     fun deleteEmployee(employee: Employee) = executor.diskIOExecute { dao.delete(employee) }
 
 
-    suspend fun getDummyDataFromServiceAndLoadToLocalDB() : Boolean {
+    suspend fun getDummyDataFromServerAndLoadToLocalDB() : Boolean {
         var result = false
         if (taskUtils.isInternetAvailable()) {
-            withContext(Dispatchers.IO){
-                val call = dataService.getDummyEmployeesData()
-                val response = call.execute()
-                Logger.d(response)
-                if(response.isSuccessful)
-                    result = insertEmployees(response.body()!!)
-            }
+            val serverData = retriveDataFromServer()
+            if(serverData.first)
+                result = insertEmployees(serverData.second)
         }
         return result
+    }
+
+    suspend fun retriveDataFromServer(): Pair<Boolean,List<Employee>> {
+        var list : List<Employee> = arrayListOf()
+        var validResponse = false
+        withContext(Dispatchers.IO){
+            val call = dataService.getDummyEmployeesData()
+            val response = call.execute()
+            Logger.d(response)
+            if(response.isSuccessful) {
+                list = response.body()!!
+                validResponse = true
+            }
+        }
+        return Pair(validResponse,list)
     }
 }

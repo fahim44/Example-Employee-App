@@ -20,7 +20,7 @@ class LauncherViewModel @Inject constructor(private val repository: EmployeeRepo
     fun checkExistingData(){
         if (!repository.isDummyDataLoaded()){
             viewModelScope.launch {
-                val result = repository.getDummyDataFromServiceAndLoadToLocalDB()
+                val result = repository.getDummyDataFromServerAndLoadToLocalDB()
                 if (result)
                     repository.setDummyDataLoaded()
                 _navigateToTabActivityMLD.value = true
