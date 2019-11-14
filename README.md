@@ -8,9 +8,10 @@ A Simple Android example app.
      1. MVVM
      2. LiveData
      3. Pagination
-     4. Databinding
+     4. Data Binding
      5. Room
      6. WorkManager
+     7. Lifecycles
      
 * androidx library
      
