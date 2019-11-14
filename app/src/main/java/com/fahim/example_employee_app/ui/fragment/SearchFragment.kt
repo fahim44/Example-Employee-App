@@ -33,7 +33,7 @@ class SearchFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val searchViewModel : SearchViewModel by viewModels {
+    private val viewModel : SearchViewModel by viewModels {
         viewModelFactory
     }
 
@@ -59,18 +59,18 @@ class SearchFragment : DaggerFragment() {
         ib.setOnClickListener {
             hideKeyboard()
             if (et.text != null && et.text.toString().trim()!="" && et.text.toString() != currentSearchedName){
-                adapter  = EmployeeListAdapter(searchViewModel,R.layout.list_item_layout)
-                observer?.let { searchViewModel.searchedEmployeeListLD?.removeObserver(it) }
+                adapter  = EmployeeListAdapter(viewModel,R.layout.list_item_layout)
+                observer?.let { viewModel.searchedEmployeeListLD?.removeObserver(it) }
                 observer = Observer(adapter!!::submitList)
-                searchViewModel.search("%" + et.text.toString() + "%")
-                searchViewModel.searchedEmployeeListLD?.observe(this,observer!!)
+                viewModel.search("%" + et.text.toString() + "%")
+                viewModel.searchedEmployeeListLD?.observe(this,observer!!)
                 recyclerView?.adapter = adapter
                 currentSearchedName = et.text.toString()
             } }
     }
 
     private fun handleLiveData(){
-        searchViewModel.navigateToDetailActivityLD.observe(this, Observer {
+        viewModel.navigateToDetailActivityLD.observe(this, Observer {
             /*val intent = Intent(activity, DetailActivity::class.java)
             intent.putExtra(EmployeeKeys.EMPLOYEE_ID,it)
             startActivity(intent)

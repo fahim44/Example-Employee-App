@@ -28,7 +28,8 @@ class LauncherActivity : DaggerAppCompatActivity() {
         supportActionBar?.hide()
         //viewModel = ViewModelProviders.of(this,viewModelFactory).get(LauncherViewModel::class.java)
         //viewModel = createViewModel { (application as EmployeeApplication).component.provideMainViewModel() }
-        viewModel.checkExistingData()
+        //viewModel.checkExistingData()
+        viewModel.addLifeCycleObserver(lifecycle)
 
         handleLiveData()
     }

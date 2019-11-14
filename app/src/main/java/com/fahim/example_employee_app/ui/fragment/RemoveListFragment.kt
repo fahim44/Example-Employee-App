@@ -1,6 +1,5 @@
 package com.fahim.example_employee_app.ui.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +28,7 @@ class RemoveListFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val removeListViewModel : RemoveListViewModel by viewModels {
+    private val viewModel : RemoveListViewModel by viewModels {
         viewModelFactory
     }
 
@@ -42,7 +41,7 @@ class RemoveListFragment : DaggerFragment() {
     }
 
     private fun initView(root:View){
-        adapter = EmployeeListAdapter(removeListViewModel,R.layout.remove_list_item_layout)
+        adapter = EmployeeListAdapter(viewModel,R.layout.remove_list_item_layout)
         recyclerView = root.findViewById(R.id.rv) as RecyclerView
         recyclerView?.layoutManager = LinearLayoutManager(context)
         recyclerView?.adapter = adapter
@@ -54,9 +53,9 @@ class RemoveListFragment : DaggerFragment() {
     }
 
     private fun handleLiveData(){
-        removeListViewModel.allEmployeeListLD.observe(this, Observer(adapter::submitList))
+        viewModel.allEmployeeListLD.observe(this, Observer(adapter::submitList))
 
-        removeListViewModel.navigateToAddEditActivityLD.observe(this, Observer {
+        viewModel.navigateToAddEditActivityLD.observe(this, Observer {
             val action = RemoveListFragmentDirections.actionAddOrEdit().setUid(it)
             findNavController().navigate(action)
         })
@@ -80,7 +79,7 @@ class RemoveListFragment : DaggerFragment() {
         builder.setCancelable(false)
         builder.setMessage("Do you want to delete this employee?")
         builder.setPositiveButton("Yes"){_, _ ->
-            removeListViewModel.delete(adapter.getEmployeeAt(adapterPosition))
+            viewModel.delete(adapter.getEmployeeAt(adapterPosition))
             Toast.makeText(context, "Employee Deleted!", Toast.LENGTH_SHORT).show() }
         builder.setNegativeButton("No"){dialog, _ ->
             adapter.notifyItemChanged(adapterPosition)

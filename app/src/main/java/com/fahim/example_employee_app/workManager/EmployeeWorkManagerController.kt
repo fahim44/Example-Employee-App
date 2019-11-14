@@ -13,7 +13,6 @@ class EmployeeWorkManagerController @Inject constructor(private val context: Con
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .setRequiresBatteryNotLow(true)
-            .setRequiresDeviceIdle(true)
             .build()
 
         // ...then create a OneTimeWorkRequest that uses those constraints

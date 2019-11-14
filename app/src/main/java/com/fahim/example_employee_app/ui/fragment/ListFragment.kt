@@ -23,7 +23,7 @@ class ListFragment : DaggerFragment() {
 
     private lateinit var adapter : EmployeeListAdapter
 
-    private val listViewModel : ListViewModel by viewModels {
+    private val viewModel : ListViewModel by viewModels {
         viewModelFactory
     }
 
@@ -35,7 +35,7 @@ class ListFragment : DaggerFragment() {
     }
 
     private fun initView(root:View){
-        adapter = EmployeeListAdapter(listViewModel,R.layout.list_item_layout)
+        adapter = EmployeeListAdapter(viewModel,R.layout.list_item_layout)
 
         val recyclerView = root.findViewById(R.id.rv) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -43,9 +43,9 @@ class ListFragment : DaggerFragment() {
     }
 
     private fun handleLiveData(){
-        listViewModel.allEmployeeListLD.observe(this, Observer(adapter::submitList))
+        viewModel.allEmployeeListLD.observe(this, Observer(adapter::submitList))
 
-        listViewModel.navigateToDetailActivityLD.observe(this, Observer {
+        viewModel.navigateToDetailActivityLD.observe(this, Observer {
             val action = ListFragmentDirections.actionListToDetail().setUid(it)
             findNavController().navigate(action)
         })

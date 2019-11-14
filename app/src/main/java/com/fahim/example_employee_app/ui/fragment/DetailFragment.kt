@@ -49,7 +49,6 @@ class DetailFragment : DaggerFragment(){
 
 
     override fun onPause() {
-
         viewModel.updateRating(rating_bar.rating)
         super.onPause()
     }
