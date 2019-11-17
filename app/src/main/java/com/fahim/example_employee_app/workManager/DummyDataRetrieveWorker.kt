@@ -18,7 +18,7 @@ class DummyDataRetrieveWorker @AssistedInject constructor(
         if (repository.isDummyDataLoaded()) return@coroutineScope Result.success()
 
         if (isStopped) return@coroutineScope Result.failure()
-        val serverData = repository.retriveDataFromServer()
+        val serverData = repository.retrieveDataFromServer()
 
         if (isStopped) return@coroutineScope Result.failure()
         var result = false

@@ -58,14 +58,14 @@ class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, priv
     suspend fun getDummyDataFromServerAndLoadToLocalDB() : Boolean {
         var result = false
         if (taskUtils.isInternetAvailable()) {
-            val serverData = retriveDataFromServer()
+            val serverData = retrieveDataFromServer()
             if(serverData.first)
                 result = insertEmployees(serverData.second)
         }
         return result
     }
 
-    suspend fun retriveDataFromServer(): Pair<Boolean,List<Employee>> {
+    suspend fun retrieveDataFromServer(): Pair<Boolean,List<Employee>> {
         var list : List<Employee> = arrayListOf()
         var validResponse = false
         withContext(Dispatchers.IO){
