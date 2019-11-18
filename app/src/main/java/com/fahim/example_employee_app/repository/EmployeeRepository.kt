@@ -6,7 +6,6 @@ import com.fahim.example_employee_app.model.Employee
 import com.fahim.example_employee_app.api.DummyDataService
 import com.fahim.example_employee_app.db.EmployeeDao
 import com.fahim.example_employee_app.preference.SharedPreference
-import com.fahim.example_employee_app.util.AppExecutors
 import com.fahim.example_employee_app.util.TaskUtils
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +14,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, private val dataService: DummyDataService, private val preference: SharedPreference, private val taskUtils: TaskUtils, private val executor : AppExecutors) {
+class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, private val dataService: DummyDataService, private val preference: SharedPreference, private val taskUtils: TaskUtils) {
 
     fun isDummyDataLoaded() = preference.isInitDataLoaded()
 
@@ -42,7 +41,11 @@ class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, priv
         return true
     }
 
-    fun updateEmployeeRating(id: Int, rating : Float) =  executor.diskIOExecute { dao.updateRating(id,rating) }
+    suspend fun updateEmployeeRating(id: Int, rating : Float){
+        withContext(Dispatchers.IO){
+            dao.updateRating(id,rating)
+        }
+    }
 
     suspend fun updateEmployee(employee: Employee) : Boolean {
         var result = 0
@@ -52,7 +55,11 @@ class EmployeeRepository @Inject constructor(private val dao : EmployeeDao, priv
         return (result!= 0)
     }
 
-    fun deleteEmployee(employee: Employee) = executor.diskIOExecute { dao.delete(employee) }
+    suspend fun deleteEmployee(employee: Employee) {
+        withContext(Dispatchers.IO) {
+            dao.delete(employee)
+        }
+    }
 
 
     suspend fun getDummyDataFromServerAndLoadToLocalDB() : Boolean {
