@@ -5,7 +5,6 @@ import com.fahim.example_employee_app.db.EmployeeDao
 import com.fahim.example_employee_app.model.Employee
 import com.fahim.example_employee_app.preference.SharedPreference
 import com.fahim.example_employee_app.repository.EmployeeRepository
-import com.fahim.example_employee_app.util.AppExecutors
 import com.fahim.example_employee_app.util.TaskUtils
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.resetMain
@@ -39,9 +38,6 @@ class EmployeeRepositoryTest {
 
     @Mock
     lateinit var taskUtils: TaskUtils
-
-    @Mock
-    lateinit var executor : AppExecutors
 
     @Mock
     lateinit var call : Call<List<Employee>>
@@ -138,6 +134,28 @@ class EmployeeRepositoryTest {
                 Mockito.verify(call).execute()
                 Mockito.verify(response).body()
                 Mockito.verify(response).isSuccessful
+            } }
+    }
+
+
+    @Test
+    fun updateEmployeeRating(){
+        val id = 1
+        val rating = 2.3f
+        runBlocking {
+            launch(Dispatchers.Main){
+                repository.updateEmployeeRating(id,rating)
+                Mockito.verify(dao).updateRating(id,rating)
+            } }
+    }
+
+    @Test
+    fun deleteEmployee(){
+        val employee = Employee(1,"name",1000f,21,4.1f)
+        runBlocking {
+            launch(Dispatchers.Main){
+                repository.deleteEmployee(employee)
+                Mockito.verify(dao).delete(employee)
             } }
     }
 }

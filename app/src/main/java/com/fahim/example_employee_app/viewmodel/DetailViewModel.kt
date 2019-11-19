@@ -1,7 +1,9 @@
 package com.fahim.example_employee_app.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.fahim.example_employee_app.repository.EmployeeRepository
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DetailViewModel @Inject constructor(private val repository: EmployeeRepository) : ViewModel() {
@@ -12,6 +14,8 @@ class DetailViewModel @Inject constructor(private val repository: EmployeeReposi
 
     fun updateRating(rating: Float) {
         if (uid>=0)
-            repository.updateEmployeeRating(uid,rating)
+            viewModelScope.launch {
+                repository.updateEmployeeRating(uid,rating)
+            }
     }
 }
