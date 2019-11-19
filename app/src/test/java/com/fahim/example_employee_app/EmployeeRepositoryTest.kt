@@ -27,7 +27,7 @@ import retrofit2.Response
 @Suppress("Unused")
 @UseExperimental(ObsoleteCoroutinesApi::class,ExperimentalCoroutinesApi::class)
 @RunWith(JUnit4::class)
-class TestEmployeeRepository {
+class EmployeeRepositoryTest {
     @Mock
     lateinit var dao: EmployeeDao
 
