@@ -6,7 +6,8 @@ import dagger.Module
 import dagger.Provides
 
 @Module(includes = [DatabaseModule::class,
-    RetrofitModule::class])
+    RetrofitModule::class,
+    AppBindingModule::class])
 class AppModule {
     @Provides
     fun provideContext(app:EmployeeApplication): Context = app.applicationContext

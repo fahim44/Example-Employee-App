@@ -10,14 +10,14 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 @Suppress("UNUSED")
-abstract class ActivityBindingModule {
+interface ActivityBindingModule {
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [LauncherModule::class])
-    internal abstract fun launcherActivity(): LauncherActivity
+    fun launcherActivity(): LauncherActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [TabPageModule::class])
-    internal abstract fun tabPageActivity(): TabPageActivity
+    fun tabPageActivity(): TabPageActivity
 
 }

@@ -18,5 +18,5 @@ interface WorkManagerModule {
 
 
     @Binds
-    abstract fun bindWorkerFactory(factory: MainWorkerFactory): WorkerFactory
+    fun bindWorkerFactory(factory: MainWorkerFactory): WorkerFactory
 }

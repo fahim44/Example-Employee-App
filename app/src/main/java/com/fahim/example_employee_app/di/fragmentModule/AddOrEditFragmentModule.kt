@@ -8,9 +8,9 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class AddOrEditFragmentModule {
+interface AddOrEditFragmentModule {
     @Binds
     @IntoMap
     @ViewModelKey(AddOrEditViewModel::class)
-    abstract fun bindAddOrEditViewModel(userViewModel: AddOrEditViewModel): ViewModel
+    fun bindAddOrEditViewModel(userViewModel: AddOrEditViewModel): ViewModel
 }

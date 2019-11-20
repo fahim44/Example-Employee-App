@@ -4,7 +4,7 @@ import com.fahim.example_employee_app.api.DummyDataService
 import com.fahim.example_employee_app.db.EmployeeDao
 import com.fahim.example_employee_app.model.Employee
 import com.fahim.example_employee_app.preference.SharedPreference
-import com.fahim.example_employee_app.repository.EmployeeRepository
+import com.fahim.example_employee_app.repository.EmployeeRepositoryImpl
 import com.fahim.example_employee_app.util.TaskUtils
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.resetMain
@@ -46,7 +46,7 @@ class EmployeeRepositoryTest {
     lateinit var response: Response<List<Employee>>
 
     @InjectMocks
-    lateinit var repository : EmployeeRepository
+    lateinit var repository : EmployeeRepositoryImpl
 
 
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
