@@ -86,8 +86,7 @@ class EmployeeRepositoryTest {
             launch(Dispatchers.Main){
                 assert(repository.updateEmployee(employee))
                 Mockito.verify(dao).update(employee)
-            }
-        }
+            } }
     }
 
 

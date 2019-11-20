@@ -10,6 +10,14 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+
+    //for kotlin open class for mockito mock final class also add anotations from app/debug/java/com/.....  & app/release/java/com/.....
+    //add in app build.gradle file --> apply plugin: 'kotlin-allopen', also add allOpen { annotation 'com.fahim.example_employee_app.OpenClass'}
+    // also anotate class which you want to mock with @OpenClassOnDebug
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+
+        
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         def nav_version = "2.1.0"

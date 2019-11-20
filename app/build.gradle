@@ -8,6 +8,8 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs"
 
+apply plugin: 'kotlin-allopen'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -47,6 +49,10 @@ android {
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
     }
+}
+
+allOpen {
+    annotation 'com.fahim.example_employee_app.OpenClass'
 }
 
 dependencies {
