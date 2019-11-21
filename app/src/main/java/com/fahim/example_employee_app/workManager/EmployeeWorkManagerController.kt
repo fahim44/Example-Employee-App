@@ -12,7 +12,6 @@ class EmployeeWorkManagerController @Inject constructor(private val context: Con
         // Create a Constraints object that defines when the task should run
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
-            .setRequiresBatteryNotLow(true)
             .build()
 
         // ...then create a OneTimeWorkRequest that uses those constraints
