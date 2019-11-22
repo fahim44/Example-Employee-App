@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.adapter.EmployeeListAdapter
+import com.fahim.example_employee_app.callBack.AlertDialogCallBack
+import com.fahim.example_employee_app.util.ViewUtils
 import com.fahim.example_employee_app.viewmodel.RemoveListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.android.support.DaggerFragment
@@ -75,15 +76,14 @@ class RemoveListFragment : DaggerFragment() {
 
 
     private fun showDeleteDialog(adapterPosition:Int){
-        val builder = AlertDialog.Builder(context!!)
-        builder.setCancelable(false)
-        builder.setMessage("Do you want to delete this employee?")
-        builder.setPositiveButton("Yes"){_, _ ->
-            viewModel.delete(adapter.getEmployeeAt(adapterPosition))
-            Toast.makeText(context, "Employee Deleted!", Toast.LENGTH_SHORT).show() }
-        builder.setNegativeButton("No"){dialog, _ ->
-            adapter.notifyItemChanged(adapterPosition)
-            dialog.cancel() }
-        builder.create().show()
+        ViewUtils.showAlertDialog(context!!,null,getString(R.string.delete_employee_confirmation),
+            (ViewUtils.SHOW_POSITIVE_BUTTON or ViewUtils.SHOW_NEGATIVE_BUTTON),
+            object : AlertDialogCallBack{
+                override fun onClickPositiveButton() {
+                    viewModel.delete(adapter.getEmployeeAt(adapterPosition))
+                    Toast.makeText(context, R.string.employee_deleted, Toast.LENGTH_SHORT).show()
+                }
+                override fun onClickNegativeButton() { adapter.notifyItemChanged(adapterPosition) }
+        })
     }
 }
