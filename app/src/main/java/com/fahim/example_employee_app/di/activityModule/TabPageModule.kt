@@ -8,25 +8,25 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 @Suppress("UNUSED")
-internal abstract class TabPageModule {
+interface TabPageModule {
 
     @ChildFragmentScoped
     @ContributesAndroidInjector(modules = [ListFragmentModule::class])
-    internal abstract fun list(): ListFragment
+    fun list(): ListFragment
 
     @ChildFragmentScoped
     @ContributesAndroidInjector(modules = [SearchFragmentModule::class])
-    internal abstract fun search(): SearchFragment
+    fun search(): SearchFragment
 
     @ChildFragmentScoped
     @ContributesAndroidInjector(modules = [RemoveListFragmentModule::class])
-    internal abstract fun remove(): RemoveListFragment
+    fun remove(): RemoveListFragment
 
     @ChildFragmentScoped
     @ContributesAndroidInjector(modules = [DetailFragmentModule::class])
-    internal abstract fun detail(): DetailFragment
+    fun detail(): DetailFragment
 
     @ChildFragmentScoped
     @ContributesAndroidInjector(modules = [AddOrEditFragmentModule::class])
-    internal abstract fun addOrEdit(): AddOrEditFragment
+    fun addOrEdit(): AddOrEditFragment
 }

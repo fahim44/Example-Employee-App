@@ -17,7 +17,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'com.fahim.example_employee_app.CustomAndroidJunitRunner'
     }
 
     dataBinding {
@@ -47,6 +47,7 @@ android {
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
     }
+
 }
 
 dependencies {
@@ -54,11 +55,12 @@ dependencies {
     def paging_version = "2.1.0"
     def room_version = "2.2.1"
     def dagger_version = "2.25.2"
-    def dagger_assissted_injection_version = "0.5.1"
+    def dagger_assisted_injection_version = "0.5.1"
     def retrofit_version = "2.4.0"
     def okHttp_version = "4.2.1"
     def work_version = "2.2.0"
     def mockito_version = "3.1.0"
+    def coroutines_version = "1.3.2"
 
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -109,8 +111,8 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$dagger_version"
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
-    compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$dagger_assissted_injection_version"
-    kapt "com.squareup.inject:assisted-inject-processor-dagger2:$dagger_assissted_injection_version"
+    compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$dagger_assisted_injection_version"
+    kapt "com.squareup.inject:assisted-inject-processor-dagger2:$dagger_assisted_injection_version"
 
     //cosin loading view
     implementation 'com.github.NikitaGordia:Cosin:1.1.0'
@@ -126,7 +128,12 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-android:$mockito_version"
     testImplementation "org.mockito:mockito-inline:$mockito_version"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    androidTestImplementation 'com.github.tmurakami:dexopener:2.0.4'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
 
-    //coroutine-test
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2'
+    //coroutines-test
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
 }

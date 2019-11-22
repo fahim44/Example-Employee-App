@@ -8,9 +8,9 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class ListFragmentModule {
+interface ListFragmentModule {
     @Binds
     @IntoMap
     @ViewModelKey(ListViewModel::class)
-    abstract fun bindListViewModel(userViewModel: ListViewModel): ViewModel
+    fun bindListViewModel(userViewModel: ListViewModel): ViewModel
 }

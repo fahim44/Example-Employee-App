@@ -8,9 +8,9 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class LauncherModule {
+interface LauncherModule {
     @Binds
     @IntoMap
     @ViewModelKey(LauncherViewModel::class)
-    abstract fun bindLauncherViewModel(userViewModel: LauncherViewModel): ViewModel
+    fun bindLauncherViewModel(userViewModel: LauncherViewModel): ViewModel
 }

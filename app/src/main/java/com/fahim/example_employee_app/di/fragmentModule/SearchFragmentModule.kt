@@ -8,9 +8,9 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class SearchFragmentModule {
+interface SearchFragmentModule {
     @Binds
     @IntoMap
     @ViewModelKey(SearchViewModel::class)
-    abstract fun bindSearchViewModel(userViewModel: SearchViewModel): ViewModel
+    fun bindSearchViewModel(userViewModel: SearchViewModel): ViewModel
 }

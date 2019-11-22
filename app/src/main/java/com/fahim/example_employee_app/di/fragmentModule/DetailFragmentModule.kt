@@ -8,9 +8,9 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class DetailFragmentModule {
+interface DetailFragmentModule {
     @Binds
     @IntoMap
     @ViewModelKey(DetailViewModel::class)
-    abstract fun bindDetailViewModel(userViewModel: DetailViewModel): ViewModel
+    fun bindDetailViewModel(userViewModel: DetailViewModel): ViewModel
 }
