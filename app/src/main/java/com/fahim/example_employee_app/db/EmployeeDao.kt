@@ -14,7 +14,7 @@ interface EmployeeDao {
     fun insert(vararg employees : Employee) : List<Long>
 
     @Delete
-    fun delete(employee: Employee)
+    fun delete(employee: Employee) : Int
 
     @Update
     fun update(employee: Employee) : Int

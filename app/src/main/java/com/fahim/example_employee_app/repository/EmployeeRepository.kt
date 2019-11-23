@@ -19,11 +19,11 @@ interface EmployeeRepository {
 
     suspend fun insertEmployees(employees: List<Employee>) : Boolean
 
-    suspend fun updateEmployeeRating(id: Int, rating : Float)
+    suspend fun updateEmployeeRating(id: Int, rating : Float) : Boolean
 
     suspend fun updateEmployee(employee: Employee) : Boolean
 
-    suspend fun deleteEmployee(employee: Employee)
+    suspend fun deleteEmployee(employee: Employee) : Boolean
 
     suspend fun getDummyDataFromServerAndLoadToLocalDB() : Boolean
 

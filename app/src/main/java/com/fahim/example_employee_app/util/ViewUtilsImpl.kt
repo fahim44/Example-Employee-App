@@ -12,7 +12,7 @@ class ViewUtilsImpl @Inject constructor(private val activity:Activity) : ViewUti
     override fun showAlertDialog(title:String?, message:String?, viewInfo:Int, callBack: AlertDialogCallBack){
         val builder = AlertDialog.Builder(activity)
 
-        if((viewInfo and IS_CANCALABLE)>0)  builder.setCancelable(true)
+        if((viewInfo and IS_CANCELABLE)>0)  builder.setCancelable(true)
         else builder.setCancelable(false)
 
         title?.let { builder.setTitle(it) }

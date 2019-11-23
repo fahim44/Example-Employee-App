@@ -65,6 +65,15 @@ class RemoveListFragment : DaggerFragment() {
             val action = RemoveListFragmentDirections.actionAddOrEdit().setUid(it)
             findNavController().navigate(action)
         })
+
+        viewModel.showToastLD.observe(this, Observer {
+            Toast.makeText(context,it,Toast.LENGTH_SHORT).show()
+        })
+
+        viewModel.notifyAdapterItemChangedLD.observe(this, Observer {
+            adapter.notifyItemChanged(it)
+        })
+
     }
 
     private fun setSwipeFunctionality(){
@@ -85,8 +94,7 @@ class RemoveListFragment : DaggerFragment() {
             (ViewUtils.SHOW_POSITIVE_BUTTON or ViewUtils.SHOW_NEGATIVE_BUTTON),
             object : AlertDialogCallBack{
                 override fun onClickPositiveButton() {
-                    viewModel.delete(adapter.getEmployeeAt(adapterPosition))
-                    Toast.makeText(context, R.string.employee_deleted, Toast.LENGTH_SHORT).show()
+                    viewModel.delete(adapter.getEmployeeAt(adapterPosition),adapterPosition)
                 }
                 override fun onClickNegativeButton() { adapter.notifyItemChanged(adapterPosition) }
         })

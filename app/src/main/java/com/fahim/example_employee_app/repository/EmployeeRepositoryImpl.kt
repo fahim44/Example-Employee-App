@@ -45,10 +45,14 @@ class EmployeeRepositoryImpl @Inject constructor(private val dao : EmployeeDao,
         return true
     }
 
-    override suspend fun updateEmployeeRating(id: Int, rating : Float){
-        withContext(Dispatchers.IO){
-            dao.updateRating(id,rating)
+    override suspend fun updateEmployeeRating(id: Int, rating : Float) : Boolean{
+        if(id>=0 && rating>=0 && rating <= 5.0f) {
+            withContext(Dispatchers.IO) {
+                dao.updateRating(id, rating)
+            }
+            return true
         }
+        return false
     }
 
     override suspend fun updateEmployee(employee: Employee) : Boolean {
@@ -56,13 +60,15 @@ class EmployeeRepositoryImpl @Inject constructor(private val dao : EmployeeDao,
         withContext(Dispatchers.IO){
             result = dao.update(employee)
         }
-        return (result!= 0)
+        return (result > 0)
     }
 
-    override suspend fun deleteEmployee(employee: Employee) {
+    override suspend fun deleteEmployee(employee: Employee) : Boolean {
+        var response = 0
         withContext(Dispatchers.IO) {
-            dao.delete(employee)
+            response = dao.delete(employee)
         }
+        return (response > 0)
     }
 
 
@@ -77,17 +83,21 @@ class EmployeeRepositoryImpl @Inject constructor(private val dao : EmployeeDao,
     }
 
     override suspend fun retrieveDataFromServer(): Pair<Boolean,List<Employee>> {
-        var list : List<Employee> = arrayListOf()
+        var list : List<Employee>? = null
         var validResponse = false
         withContext(Dispatchers.IO){
             val call = dataService.getDummyEmployeesData()
             val response = call.execute()
             Logger.d(response)
             if(response.isSuccessful) {
-                list = response.body()!!
+                list = response.body()
                 validResponse = true
             }
         }
-        return Pair(validResponse,list)
+        if(list == null){
+            list = arrayListOf()
+            validResponse = false
+        }
+        return Pair(validResponse,list!!)
     }
 }
