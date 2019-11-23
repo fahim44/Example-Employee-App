@@ -1,16 +1,12 @@
 package com.fahim.example_employee_app.di.fragmentModule
 
-import androidx.lifecycle.ViewModel
-import com.fahim.example_employee_app.di.anotation.ViewModelKey
-import com.fahim.example_employee_app.viewmodel.RemoveListViewModel
-import dagger.Binds
+import android.app.Activity
+import com.fahim.example_employee_app.ui.fragment.RemoveListFragment
 import dagger.Module
-import dagger.multibindings.IntoMap
+import dagger.Provides
 
 @Module
-interface RemoveListFragmentModule {
-    @Binds
-    @IntoMap
-    @ViewModelKey(RemoveListViewModel::class)
-    fun bindRemoveListViewModel(userViewModel: RemoveListViewModel): ViewModel
+class RemoveListFragmentModule {
+    @Provides
+    fun provideActivity(fragment: RemoveListFragment): Activity  = fragment.activity!!
 }

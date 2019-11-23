@@ -3,7 +3,6 @@ package com.fahim.example_employee_app
 
 import android.util.Log
 import androidx.work.Configuration
-import androidx.work.WorkManager
 import androidx.work.WorkerFactory
 import com.fahim.example_employee_app.di.DaggerAppComponent
 import dagger.android.AndroidInjector
