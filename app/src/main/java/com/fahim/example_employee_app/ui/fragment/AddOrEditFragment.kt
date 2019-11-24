@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.databinding.FragmentAddOrEditBinding
@@ -85,7 +84,7 @@ class AddOrEditFragment : DaggerFragment() {
         })
         viewModel.onBackPressLD.observe(this, Observer {
             if(it)
-                findNavController().popBackStack()
+                activity?.onBackPressed()
         })
     }
 }
