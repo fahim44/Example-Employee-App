@@ -24,3 +24,5 @@ A Simple Android example app.
 * android JUnit test
 
 * Kotlin Coroutines
+
+* R8 for code shriking
