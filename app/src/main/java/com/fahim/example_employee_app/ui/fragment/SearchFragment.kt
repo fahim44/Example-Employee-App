@@ -71,10 +71,6 @@ class SearchFragment : DaggerFragment() {
 
     private fun handleLiveData(){
         viewModel.navigateToDetailActivityLD.observe(this, Observer {
-            /*val intent = Intent(activity, DetailActivity::class.java)
-            intent.putExtra(EmployeeKeys.EMPLOYEE_ID,it)
-            startActivity(intent)
-            activity?.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)*/
             val action = SearchFragmentDirections.actionSearchToDetail().setUid(it)
             findNavController().navigate(action)
         })

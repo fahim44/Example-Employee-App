@@ -4,7 +4,7 @@ import androidx.paging.Config
 import androidx.paging.toLiveData
 import com.fahim.example_employee_app.model.Employee
 import com.fahim.example_employee_app.api.DummyDataService
-import com.fahim.example_employee_app.db.EmployeeDao
+import com.fahim.example_employee_app.db.LocalDBDataSource
 import com.fahim.example_employee_app.preference.SharedPreference
 import com.fahim.example_employee_app.util.TaskUtils
 import com.orhanobut.logger.Logger
@@ -14,7 +14,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class EmployeeRepositoryImpl @Inject constructor(private val dao : EmployeeDao,
+class EmployeeRepositoryImpl @Inject constructor(private val dbDataSource: LocalDBDataSource,
                                                  private val dataService: DummyDataService,
                                                  private val preference: SharedPreference,
                                                  private val taskUtils: TaskUtils)
@@ -26,17 +26,17 @@ class EmployeeRepositoryImpl @Inject constructor(private val dao : EmployeeDao,
         preference.initDataLoaded(true)
     }
 
-    override fun getEmployee(uid:Int) = dao.getEmployee(uid)
+    override fun getEmployee(uid:Int) = dbDataSource.getEmployee(uid)
 
-    override fun getAllEmployees()  = dao.getAllEmployees().toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
+    override fun getAllEmployees()  = dbDataSource.getAllEmployees().toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
 
-    override fun getSearchedEmployeeList(name:String) = dao.employeesSortByName(name).toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
+    override fun getSearchedEmployeeList(name:String) = dbDataSource.employeesSortByName(name).toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
 
 
     override suspend fun insertEmployees(employees: List<Employee>) : Boolean {
         var list:List<Long>? = null
         withContext(Dispatchers.IO){
-            list = dao.insert(*employees.toTypedArray())
+            list = dbDataSource.insertEmployees(employees)
         }
         if(list==null)
             return false
@@ -47,30 +47,22 @@ class EmployeeRepositoryImpl @Inject constructor(private val dao : EmployeeDao,
 
     override suspend fun updateEmployeeRating(id: Int, rating : Float) : Boolean{
         if(id>=0 && rating>=0 && rating <= 5.0f) {
+            var result = false
             withContext(Dispatchers.IO) {
-                dao.updateRating(id, rating)
+                result = dbDataSource.updateRating(id, rating)
             }
-            return true
+            return result
         }
         return false
     }
 
-    override suspend fun updateEmployee(employee: Employee) : Boolean {
-        var result = 0
-        withContext(Dispatchers.IO){
-            result = dao.update(employee)
-        }
-        return (result > 0)
+    override suspend fun updateEmployee(employee: Employee) = withContext(Dispatchers.IO){
+        return@withContext dbDataSource.updateEmployee(employee)
     }
 
-    override suspend fun deleteEmployee(employee: Employee) : Boolean {
-        var response = 0
-        withContext(Dispatchers.IO) {
-            response = dao.delete(employee)
-        }
-        return (response > 0)
+    override suspend fun deleteEmployee(employee: Employee) = withContext(Dispatchers.IO){
+        return@withContext dbDataSource.deleteEmployee(employee)
     }
-
 
     override suspend fun getDummyDataFromServerAndLoadToLocalDB() : Boolean {
         var result = false

@@ -29,5 +29,5 @@ interface EmployeeDao {
     fun getEmployee(uid:Int): LiveData<Employee>
 
     @Query("UPDATE employee SET employee_rating = :rating WHERE uid = :id")
-    fun updateRating(id:Int, rating: Float)
+    fun updateRating(id:Int, rating: Float) : Int
 }

@@ -1,5 +1,7 @@
 package com.fahim.example_employee_app.di.appModule
 
+import com.fahim.example_employee_app.db.LocalDBDataSource
+import com.fahim.example_employee_app.db.LocalDBDataSourceImpl
 import com.fahim.example_employee_app.preference.SharedPreference
 import com.fahim.example_employee_app.preference.SharedPreferenceImpl
 import com.fahim.example_employee_app.repository.EmployeeRepository
@@ -19,4 +21,7 @@ interface AppBindingModule {
 
     @Binds
     fun bindRepository(repositoryImpl: EmployeeRepositoryImpl) : EmployeeRepository
+
+    @Binds
+    fun bindLocalDBDataSource(localDBDataSourceImpl: LocalDBDataSourceImpl) : LocalDBDataSource
 }
