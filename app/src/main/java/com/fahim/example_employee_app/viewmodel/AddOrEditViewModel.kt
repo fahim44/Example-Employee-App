@@ -1,24 +1,20 @@
 package com.fahim.example_employee_app.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import android.widget.Toast
+import androidx.lifecycle.*
 import com.fahim.example_employee_app.R
 import com.fahim.example_employee_app.model.Employee
 import com.fahim.example_employee_app.repository.EmployeeRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AddOrEditViewModel @Inject constructor(private val repository: EmployeeRepository) : ViewModel() {
+class AddOrEditViewModel @Inject constructor(application:Application, private val repository: EmployeeRepository) : AndroidViewModel(application) {
 
 
     // if uid < 0, then add, if uid>=0, then edit employee
     var uid = -1
     var rating = 0.0f
-
-    private val _toastMLD = MutableLiveData<Int>()
-    val toastLD : LiveData<Int> = _toastMLD
 
     private val _onBackPressMLD = MutableLiveData<Boolean>()
     val onBackPressLD : LiveData<Boolean> = _onBackPressMLD
@@ -27,11 +23,10 @@ class AddOrEditViewModel @Inject constructor(private val repository: EmployeeRep
 
 
     fun doneButtonPressed(name:String, id:String, age:String, salary:String){
-        if(validateInput(name,id,age,salary)){
+        if(validateInput(name,id,age,salary))
             addOrEditEmployee(uid,name,id,age,salary,rating)
-        }else {
-            _toastMLD.value = R.string.invalid_info
-        }
+        else
+            Toast.makeText(getApplication(),R.string.invalid_info,Toast.LENGTH_SHORT).show()
     }
 
     private fun validateInput(name:String, id:String, age:String, salary:String):Boolean{
@@ -56,12 +51,11 @@ class AddOrEditViewModel @Inject constructor(private val repository: EmployeeRep
         viewModelScope.launch {
            val result = repository.insertEmployees(listOf(Employee(id,name,salary,age,0.0f)))
             if(result){
-                _toastMLD.value = R.string.success
+                Toast.makeText(getApplication(),R.string.success,Toast.LENGTH_SHORT).show()
                 _onBackPressMLD.value = true
             }
-            else {
-                _toastMLD.value = R.string.something_wrong
-            }
+            else
+                Toast.makeText(getApplication(),R.string.something_wrong,Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -71,11 +65,11 @@ class AddOrEditViewModel @Inject constructor(private val repository: EmployeeRep
         viewModelScope.launch {
             val result = repository.updateEmployee(emp)
             if(result){
-                _toastMLD.value = R.string.success
+                Toast.makeText(getApplication(),R.string.success,Toast.LENGTH_SHORT).show()
                 _onBackPressMLD.value = true
             }
             else {
-                _toastMLD.value = R.string.something_wrong
+                Toast.makeText(getApplication(),R.string.something_wrong,Toast.LENGTH_SHORT).show()
             }
         }
 

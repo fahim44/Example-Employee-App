@@ -2,7 +2,6 @@ package com.fahim.example_employee_app.ui.fragment
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -79,9 +78,6 @@ class AddOrEditFragment : DaggerFragment() {
     }
 
     private fun handleLiveData() {
-        viewModel.toastLD.observe(this, Observer {
-            Toast.makeText(context,it,Toast.LENGTH_SHORT).show()
-        })
         viewModel.onBackPressLD.observe(this, Observer {
             if(it)
                 activity?.onBackPressed()

@@ -1,5 +1,7 @@
 package com.fahim.example_employee_app.viewmodel
 
+import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -9,7 +11,7 @@ import com.fahim.example_employee_app.repository.EmployeeRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class RemoveListViewModel @Inject constructor(private val repository: EmployeeRepository) : BaseViewModel() {
+class RemoveListViewModel @Inject constructor(application: Application,private val repository: EmployeeRepository) : BaseViewModel(application) {
 
     val allEmployeeListLD = repository.getAllEmployees()
 
@@ -24,10 +26,10 @@ class RemoveListViewModel @Inject constructor(private val repository: EmployeeRe
         employee?.let {
             viewModelScope.launch {
                 val response = repository.deleteEmployee(it)
-                if (response) _showToastMLD.value = R.string.employee_deleted
+                if (response) Toast.makeText(getApplication(),R.string.employee_deleted,Toast.LENGTH_SHORT).show()
                 else {
                     _notifyAdapterItemChangedMLD.value = adapterPosition
-                    _showToastMLD.value = R.string.something_wrong
+                    Toast.makeText(getApplication(),R.string.something_wrong,Toast.LENGTH_SHORT).show()
                 } } }
     }
 

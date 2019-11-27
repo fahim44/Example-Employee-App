@@ -1,13 +1,9 @@
 package com.fahim.example_employee_app.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 
-abstract class BaseViewModel : ViewModel() {
-
-    protected val _showToastMLD = MutableLiveData<Int>()
-    val showToastLD : LiveData<Int> = _showToastMLD
+abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
 
     abstract fun onItemClick(id: Int)
 }
