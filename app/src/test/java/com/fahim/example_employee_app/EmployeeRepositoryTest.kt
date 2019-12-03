@@ -1,7 +1,8 @@
+/*
 package com.fahim.example_employee_app
 
 import com.fahim.example_employee_app.api.DummyDataService
-import com.fahim.example_employee_app.db.EmployeeDao
+import com.fahim.example_employee_app.db.LocalDBDataSource
 import com.fahim.example_employee_app.model.Employee
 import com.fahim.example_employee_app.preference.SharedPreference
 import com.fahim.example_employee_app.repository.EmployeeRepositoryImpl
@@ -28,7 +29,7 @@ import retrofit2.Response
 @RunWith(JUnit4::class)
 class EmployeeRepositoryTest {
     @Mock
-    lateinit var dao: EmployeeDao
+    lateinit var dbDataSource: LocalDBDataSource
 
     @Mock
     lateinit var dataService: DummyDataService
@@ -70,11 +71,11 @@ class EmployeeRepositoryTest {
     @Test
     fun insertEmployees(){
         val employee = listOf(Employee(1,"name",1000f,21,4.1f))
-        Mockito.`when`(dao.insert(*employee.toTypedArray())).thenReturn(listOf(1L))
+        Mockito.`when`(dbDataSource.insertEmployees(employee)).thenReturn(listOf(1L))
         runBlocking {
             launch(Dispatchers.Main){
                 assert(repository.insertEmployees(employee))
-                Mockito.verify(dao).insert(*employee.toTypedArray())
+                Mockito.verify(dbDataSource).insertEmployees(employee)
             } }
     }
 
@@ -82,11 +83,11 @@ class EmployeeRepositoryTest {
     @Test
     fun insertEmployee__DaoReturnEmptyList(){
         val employee = listOf(Employee(1,"name",1000f,21,4.1f))
-        Mockito.`when`(dao.insert(*employee.toTypedArray())).thenReturn(ArrayList())
+        Mockito.`when`(dbDataSource.insertEmployees(employee)).thenReturn(ArrayList())
         runBlocking {
             launch(Dispatchers.Main){
                 assert(!repository.insertEmployees(employee))
-                Mockito.verify(dao).insert(*employee.toTypedArray())
+                Mockito.verify(dbDataSource).insertEmployees(employee)
             } }
     }
 
@@ -343,3 +344,4 @@ class EmployeeRepositoryTest {
             } }
     }
 }
+*/

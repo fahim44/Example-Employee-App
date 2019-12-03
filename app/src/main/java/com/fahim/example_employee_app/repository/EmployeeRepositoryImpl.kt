@@ -22,13 +22,11 @@ class EmployeeRepositoryImpl @Inject constructor(private val dbDataSource: Local
 
     override fun isDummyDataLoaded() = preference.isInitDataLoaded()
 
-    override fun setDummyDataLoaded() {
-        preference.initDataLoaded(true)
-    }
+    override fun setDummyDataLoaded() = preference.initDataLoaded(true)
 
     override fun getEmployee(uid:Int) = dbDataSource.getEmployee(uid)
 
-    override fun getAllEmployees()  = dbDataSource.getAllEmployees().toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
+    override fun getAllEmployees() = dbDataSource.getAllEmployees().toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
 
     override fun getSearchedEmployeeList(name:String) = dbDataSource.employeesSortByName(name).toLiveData(Config(pageSize = 30,enablePlaceholders = true,maxSize = 1000))
 

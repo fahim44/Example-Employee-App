@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
-class LocalDBDataSourceTests {
+class LocalDBDataSourceUnitTests {
     @get:Rule
     val testRule = InstantTaskExecutorRule()
 

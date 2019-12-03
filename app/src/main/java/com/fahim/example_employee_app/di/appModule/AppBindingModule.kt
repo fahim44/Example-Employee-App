@@ -1,5 +1,7 @@
 package com.fahim.example_employee_app.di.appModule
 
+import com.fahim.example_employee_app.api.WebApiDataSource
+import com.fahim.example_employee_app.api.WebApiDataSourceImpl
 import com.fahim.example_employee_app.db.LocalDBDataSource
 import com.fahim.example_employee_app.db.LocalDBDataSourceImpl
 import com.fahim.example_employee_app.preference.SharedPreference
@@ -24,4 +26,7 @@ interface AppBindingModule {
 
     @Binds
     fun bindLocalDBDataSource(localDBDataSourceImpl: LocalDBDataSourceImpl) : LocalDBDataSource
+
+    @Binds
+    fun bindWebApiDataSource(webApiDataSourceImpl: WebApiDataSourceImpl) : WebApiDataSource
 }
