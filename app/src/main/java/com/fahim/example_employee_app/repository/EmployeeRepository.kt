@@ -27,5 +27,5 @@ interface EmployeeRepository {
 
     suspend fun getDummyDataFromServerAndLoadToLocalDB() : Boolean
 
-    suspend fun retrieveDataFromServer(): Pair<Boolean,List<Employee>>
+    suspend fun retrieveDataFromServer(): Pair<Boolean,List<Employee>?>
 }

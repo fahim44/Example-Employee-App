@@ -23,7 +23,7 @@ class DummyDataRetrieveWorker @AssistedInject constructor(
         if (isStopped) return@coroutineScope Result.failure()
         var result = false
         if(serverData.first)
-            result = repository.insertEmployees(serverData.second)
+            result = repository.insertEmployees(serverData.second!!)
 
         if(!result) return@coroutineScope Result.retry()
         repository.setDummyDataLoaded()
