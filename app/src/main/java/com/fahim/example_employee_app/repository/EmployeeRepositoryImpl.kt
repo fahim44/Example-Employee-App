@@ -65,7 +65,7 @@ class EmployeeRepositoryImpl @Inject constructor(private val dbDataSource: Local
             return insertEmployees(serverData.second!!)
         return false
     }
-    
+
 
     override suspend fun retrieveDataFromServer() = withContext(Dispatchers.IO){
         return@withContext apiDataSource.retrieveDummyData()
