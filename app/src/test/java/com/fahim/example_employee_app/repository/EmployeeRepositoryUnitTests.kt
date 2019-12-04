@@ -1,8 +1,8 @@
 package com.fahim.example_employee_app.repository
 
+import com.fahim.example_employee_app.TestEmployeeFactory
 import com.fahim.example_employee_app.api.WebApiDataSource
 import com.fahim.example_employee_app.db.LocalDBDataSource
-import com.fahim.example_employee_app.model.Employee
 import com.fahim.example_employee_app.preference.SharedPreference
 import com.google.common.truth.Truth
 import com.nhaarman.mockitokotlin2.spy
@@ -23,7 +23,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class EmployeeRepositoryUnitTests{
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
-    private val list = listOf(Employee(1,"Fahim",80000f,27,5.0f))
+    private val list = TestEmployeeFactory.makeEmployeeList()
 
     @Mock
     lateinit var localDBDataSource: LocalDBDataSource
